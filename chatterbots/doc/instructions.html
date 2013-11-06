@@ -1,0 +1,662 @@
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 
+	This website is powered by TYPO3 - inspiring people to share!
+	TYPO3 is a free open source Content Management Framework initially created by Kasper Skaarhoj and licensed under GNU/GPL.
+	TYPO3 is copyright 1998-2013 of Kasper Skaarhoj. Extensions are copyright of their respective owners.
+	Information and contribution at http://typo3.org/
+-->
+
+<base href="http://cs.lth.se/" />
+
+
+<meta name="generator" content="TYPO3 4.7 CMS" />
+
+<link rel="stylesheet" type="text/css" href="typo3temp/stylesheet_c89dd1c966.css?1375282766" media="all" />
+
+
+
+<script src="fileadmin/template/scripts/jquery.js?1335947431" type="text/javascript"></script>
+<script src="fileadmin/template/scripts/jquery-ui.min.js?1335947163" type="text/javascript"></script>
+<script src="fileadmin/template/scripts/jquery.lightbox-0.5.js?1335956927" type="text/javascript"></script>
+
+
+<meta http-equiv="Content-Language" content="sv" />
+<meta name="robots" content="index, follow" />
+<link rel="stylesheet" type="text/css" href="/fileadmin/template/css/basic.css" />
+<link rel="stylesheet" type="text/css" href="/fileadmin/template/css/text_normal.css" />
+<link rel="stylesheet" type="text/css" href="/fileadmin/template/css/contrast_normal.css" />
+<script type="text/javascript" src="/fileadmin/template/common.js"></script>
+<link rel="stylesheet" type="text/css" href="/fileadmin/template/css/lth_01.css" />
+<title>Computer Science: EDAN40: Chatterbots</title><meta name="keywords" content="" /><meta name="description" content="" />
+</head>
+<body>
+
+<div align="center">
+<div class="templateMain" style="width: 754px; background-color: #ffffff;" align="left"><!--###templateMain### begin -->
+<div style="width: 754px; height: 29px;" class="headToolbar"><!--###headToolbar### begin -->
+<div class="headToolbarMenu" style="float: left; margin-left: 5px; width: 410px;"><!--###headToolbarMenu### begin -->
+<div style="float:left;"><a href="/english/">Home</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</div><div style="float:left;"><a href="/english/style_preferences">Style</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</div><div style="float:left;"><a href="/english/site_map">Sitemap</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</div><div style="float:left;background-image:url(/graphics/se.png);background-repeat:no-repeat;padding-left:20px;background-position:center left;"><a href="">Svenska</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</div><div><a href="http://www.lu.se/english/">Lund University</a></div>
+<!--###headToolbarMenu### end --></div>
+<div class="headToolbarSearch"><!--###headToolbarSearch### begin -->
+<form action="/english/search/" method="post" name="searchform"><input name="s" value="1" type="hidden" /><input name="so" value="1" type="hidden" /><input type="hidden" name="i" value="en" /><input type="hidden" name="category" value="cs" /><input name="q" type="text" value="" class="field" />&nbsp;<input name="x" type="submit" value="Search" class="button" /></form>
+<!--###headToolbarSearch### end --></div>
+<!--###headToolbar### end --></div>
+<div class="leftColBg"><!--###leftColBg### begin -->
+<div style="width: 573px; float: right;" class="rightTd"><!--###rightTd### begin -->
+<div class="columnTop"><!--###columnTop### begin -->
+<div class="image" align="left"><!--###image### begin --><img src="http://fileadmin.cs.lth.se/cs/Education/EDAN40/Bilder/Grundplatta_EDAN40.jpg" border="0" height="113" alt="top image" /><!--###image### end --></div>
+<!--###columnTop### end --></div>
+<div class="mainMenuSelected"><!--###mainMenuSelected### begin -->
+<div style="float: left; " class="menuItem "><a href="english/about/"  >About</a></div><div style="float: left; " class="menuItem "><a href="english/education/"  >Education</a></div><div style="float: left; " class="menuItem "><a href="english/research/"  >Research</a></div><div style="float: left; " class="menuItem "><a href="english/contact/"  >Contact</a></div><div style="float: left; " class="menuItem "><a href="english/events/"  >Events</a></div><div style="float: left; " class="menuItem menu_no_border"><a href="english/internal/"  >Internal</a></div>
+<!--###mainMenuSelected### end --></div>
+<!--###rightTd### end --></div>
+<div style="float: left; width: 178px;" class="leftTd"><!--###leftTd### begin -->
+<div class="menuLogo" id="LOGO"><a href="http://www.lth.se/english"><img src="/fileadmin/template/images/lth_eng.gif" alt="Lund university - faculty of engineering" border="0" height="113" width="178" /></a></div>
+<div class="menuSubHead"><!--###menuSubHead### begin -->
+<div class="menuDepartmentLink"><a href="/english/">Computer Science</a></div>
+<!--###menuSubHead### end --></div>
+<div class="menuSubPlate"><a href="http://cs.lth.se/EDAN40">EDAN40</a></div>
+<div class="menu"><!--###menu### begin -->
+<ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/course-syllabus/"  >Course Syllabus</a></li></ul><ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/important-dates/"  >Important Dates</a></li></ul><ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/lecture-material/"  >Lecture Material</a></li></ul><ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/class-material/"  >Class Material</a></li></ul><ul class="mainnav"><li class="isunder"><a href="english/course/edan40-functional-programming/programming-assignments/"  >Programming Assignments</a><ul class="subnav"><li class="isunderactive"><a href="english/course/edan40-functional-programming/programming-assignments/chatterbots/"  >Chatterbots</a></li><li class="nosub"><a href="english/course/edan40-functional-programming/programming-assignments/functional-music/"  >Functional Music</a></li><li class="nosub"><a href="english/course/edan40-functional-programming/programming-assignments/string-alignment/"  >String Alignment</a></li><li class="nosub"><a href="english/course/edan40-functional-programming/programming-assignments/functional-parsing/"  >Functional Parsing</a></li></ul></li></ul><ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/examination/"  >Examination</a></li></ul><ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/programming-environment/"  >Programming Environment</a></li></ul><ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/teachers/"  >Teachers</a></li></ul><ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/literature-and-links/"  >Literature and Links</a></li></ul>
+<!--###menu### end --></div>
+<div class="placeF"><!--###placeF### begin -->
+<div class="quickLaunch" style="padding-top: 10px;"><!--###quickLaunch### begin -->
+
+<!--###quickLaunch### end --></div>
+
+<!--###placeF### end --></div>
+<!--###leftTd### end --></div>
+<div style="float: right; width: 573px;" class="rightTd"><!--###rightTd### begin -->
+<div class="columnRight"><!--###columnRight### begin -->
+
+<div style="float: left; width: 573px; padding-bottom: 30px;" class="columnLeft">
+	<div class="placeA"><!--###placeA### begin -->
+		<div class="contentMain"><!--###contentMain### begin -->
+			<a name="content"></a>
+			<h1>EDAN40: Chatterbots<br /><br /></h1>
+			<a title="html" name="c102809"></a><h1>Summary</h1>
+    <p>This assignment is your first exercise in working with a Haskell 
+      program which is somewhat larger than just toy examples. You are
+      given a skeleton solution to the task and you are expected to add various 
+      missing pieces to it.</p>
+<p>The purpose of this assignment is threefold:<ol>
+  <li>Teach you <b>to read</b> and understand some already 
+    existing Haskell code;</li>
+  <li>Teach you to write fully <b>functioning</b> code: you won't get any deeper comments
+    about your solution regarding the programming style before it fullfills the 
+    functional requirements;</li>
+  <li>Teach you the preferred style of writing Haskell code (you may wish to look up the 
+    expressions "<b>point-free</b> style", or "point-free programming" or have 
+    a look at <a href="http://buffered.io/posts/point-free-style-what-is-it-good-for/">this 
+    blog post</a>).
+  </li></ol></p>
+<p>The assignment should be completed <b>in pairs</b>.</p>
+ 
+<h1>Introduction</h1>
+    <p>One of the most famous programs in the history of artificial
+    intelligence is Joseph Weizenbaum's program Eliza. Written in the early
+    sixties it emulates, or parodies, a Rogerian psychoanalyst who tries to
+    make the patient talk about his or her deepest feelings by turning
+    everything said into a question. Eliza's fame is due to the remarkable
+    observation that many people found her seem so friendly and understanding.
+    In fact some said she was the first analyst they had met who really
+    listened.</p>
+    <p>Over the years Eliza has had many successors and the phenomenon she
+    represents is now known as a <em>chatterbot</em>. On his
+    <a href="http://www.simonlaven.com/">chatterbot website</a> Simon
+    Laven gives the following definition:</p>
+    
+    <blockquote><p>A <em>chatterbot</em> is a program that attempts to simulate
+    typed conversation, with the aim of at least temporarily fooling a human
+      into thinking they are talking to another person.</p></blockquote>
+      
+    <p>Today there are plenty of chatterbots on the web. From enhancement to
+    commercial sites to research projects to mockup celebrities like
+    <a href="http://triumphpc.com/johnlennon/">John Lennon</a>. And due to the
+    resemblance to the Turing test, chatterbots usually perform well in the
+    quite prestigous <a href="http://www.loebner.net/Prizef/loebner-prize.html">
+    Loebner prize competition</a>.</p>
+
+  <p>Sometimes they even <a href="http://www.youtube.com/watch?v=WnzlbyTZsQY">talk
+ to each other</a>.</p>
+
+    <h1>The Assignment</h1>
+    <p>In this assignment you will implement a Chatterbot module which makes
+    it possible to easily create systems of this kind.</p>
+    
+<pre>
+import Chatterbot
+
+main = chatterbot "Eliza" eliza
+
+eliza = [
+  ("I need *",
+      ["Why do you need * ?",
+       "Would it really help you to get * ?",
+       "Are you sure you need * ?"]),
+
+  ("Why don't you *",
+      ["Do you really think I don't * ?",
+       "Perhaps eventually I will * .",
+       "Do you really want me to * ?"]),
+       
+       {-  ... and so on ... -} ]
+</pre>
+
+    <p>The chatterbot is defined by a list of pattern-based rules. Each rule
+    consists of two parts, a pattern and a list of templates. Input is matched
+    against the pattern and if it matches, one of the templates is given as
+    a response. Words in the input which match the wildcard '*' are bound to the
+    corresponding wildcard in the template. For example:
+    
+    <blockquote><kbd>
+    <em>You:</em> I need help<br/>
+    <em> Eliza:</em>  Are you sure you need help ?<br/>
+    </kbd></blockquote>
+    
+    <p>You can take a look at the full main program
+    <a href="http://fileadmin.cs.lth.se/cs/Education/EDAN40/assignment1/Eliza.hs.txt">here</a>.</p> 
+    
+    <h2>1. Some useful functions</h2>
+
+    <p>To create a good solution to a problem it is crucial to have a good
+    collection of basic building blocks. To find such primitives your
+    first choice should always be the standard prelude. The next choice would
+    be the other <a 
+      href="http://www.haskell.org/ghc/docs/7.4.1/html/libraries/">standard
+    libraries</a>. In this assignment we will for example make heavy use of
+      the datatype <code>Maybe</code> (found in <a 
+      href="http://hackage.haskell.org/package/base-4.2.0.1/docs/Data-Maybe.html"><code>Data.Maybe</code></a>) 
+      including the associated function 
+    <code>maybe</code>. Make sure you understand their purpose and what they 
+    do.</p>
+    
+    <p>Below are some other general functions which you will find
+    useful in this assignment. Your first task is to study them carefully
+    and figure out what they do so that you can use them later on. You might 
+    for example write a proper documentation comment for each one of them.</p>
+
+<pre>
+map2 :: (a -> b, c -> d) -> (a, c) -> (b, d)
+map2 (f1, f2) (x1, x2) = (f1 x1, f2 x2)
+
+mmap :: (a -> b) -> Maybe a -> Maybe b
+mmap f  Nothing  = Nothing
+mmap f (Just x)  = Just (f x)
+
+orElse :: Maybe a -> Maybe a -> Maybe a
+orElse Nothing  x  = x
+orElse (Just a) _  = Just a
+    
+try :: (a -> Maybe a) -> a -> a
+try f x = maybe x id (f x)
+
+fix :: Eq a => (a -> a) -> a -> a
+fix f x
+   |  f x == x  = x
+   |  otherwise = fix f (f x)
+
+pick :: RealFrac r => r -> [a] -> a
+pick u xs = xs !! (floor.(u*).fromIntegral.length) xs
+</pre>   
+    
+    <h2>2. Pattern matching</h2>
+    
+    <p>The basic machinery of chatterbots consists of <em>pattern
+    matching</em>. Your first task is to write the following
+    two functions:</p>
+    
+<pre>
+substitute :: Eq a => a -> [a] -> [a] -> [a]
+match :: Eq a => a -> [a] -> [a] -> Maybe [a]
+</pre>
+            
+    <p>The function <code>match wildcard p s</code> tries to match the
+    two lists <code>p</code> and <code>s</code>. The list <code>p</code> is
+    considered a pattern which may contain elements equal to
+    <code>wildcard</code>. The list <code>s</code> may not contain any
+    wildcards. The pattern <code>p</code> is said to match the list
+    <code>s</code> if every element in <code>p</code> matches corresponding elements
+    in <code>s</code>. A non-wildcard matches a single element in
+    <code>s</code> if they are equal and a wildcard matches an arbitrarily
+    long sublist. If the two lists match, the function returns
+    <code>Just r</code> where <code>r</code> is the sublist in
+    <code>s</code> which matches the first occurence of <code>wildcard</code>
+    in <code>p</code>. If the lists don't match, the result is
+    <code>Nothing</code>. Here are some examples:</p>
+       
+<pre>
+match 'x' "2*x+3" "2*7+3" = Just "7"
+match '*' "frodo" "gandalf" = Nothing
+match 2 [1,3..5] [1,3..5] = Just []
+match '*' "* and *" "you and me" = Just "you"
+match 'x' "2*x+3+x" "2*7+3" = Nothing
+</pre>
+
+    <p>The function <code>substitute wildcard t s</code> replaces each
+    occurrence of the element <code>wildcard</code> in the list
+    <code>t</code> with the list <code>s</code>. For example:</p>
+    
+<pre>
+substitute 'x' "3*cos(x) + 4 - x" "5.37" = 
+               "3*cos(5.37) + 4 - 5.37"
+</pre>   
+    
+    <p>Hints:<ul>
+    <li>As with most list functions you have to define different
+    equations for the cases of empty and non-empty lists.</li>
+    
+    <li>The function <code>substitute</code> is the easier one of
+    the two so you might want to write it first.</li>
+    
+    <li>The function <code>match</code> is a greater challenge.
+    In fact, it is the key to the whole chatterbot solution. In the
+    pattern matching there are three base cases, each of which should
+    be fairly straightforward:
+    
+    <ul>
+    <li>Both lists are empty.</li>
+    <li>The pattern list is empty but the other list is not.</li>
+    <li>The pattern list is not empty but the other list is.</li>
+    </ul>
+    
+    In the equation for the case of two non-empty lists you have to
+    consider the two cases where the first element of the pattern is a
+    wildcard and when it is not:
+    
+    <ul>
+    <li>If it is not a wildcard the two lists match if the first
+    elements are equal and the rests of the lists match.</li>
+    
+    <li>When the first element is a wildcard there are two possible
+    ways to reach a match. Your implementation of this case should be written
+  as a combination of the results of two auxilliary functions, <code>
+  singleWildcardMatch </code> and <code> longerWildcardMatch</code>,
+  each of which implements either of the ways.
+  
+  The function <code> singleWildcardMatch </code> defines the case when
+  the rest of the list matches with the rest of the pattern, i.e. the front
+  wildcard removed. And the function <code> longerWildcardMatch </code>
+  defines the case when rest of the list matches with the pattern with
+    the wildcard retained at the front.
+
+  Note that both the auxilliary functions need to use <code> match </code> in
+      their definitions.</li>
+    </ul>
+    
+  The example in the table below illustrates the difference between the three
+  cases that can arise when the first element is a wildcard:
+<pre><table>
+<tr height="30"><td width="240"></td><td width="100">"bdo"</td><td width="100">"dobedo"</td><td width="100">"bedobe"</td></tr>
+<tr><td>singleWildcardMatch "*do"</td><td>Just "b"</td><td>Nothing</td><td>Nothing</td></tr>
+<tr><td>longerWildcardMatch "*do"</td><td>Nothing</td><td>Just "dobe"</td><td>Nothing</td></tr>
+<tr><td>match '*' "*do"</td><td>Just "b"</td><td>Just "dobe"</td><td>Nothing</td></tr>
+</table></pre>
+<!--
+<pre>
+match '*' "*do" "bdo" = Just "b"
+match '*' "*do" "dobedo" = Just "dobe"
+match '*' "*do" "bedobe" = Nothing
+</pre>   
+-->
+   Finally, to obtain good definitions of <code>match</code> and its auxilliary functions
+  it is essential that you use some of the utility functions given in section 1 above.
+    </ul>
+    </p>
+    
+    <h2>3. Pattern transformations</h2>
+    
+    <p>A <em>pattern transformation</em> is a pair of patterns, for example:</p>
+    
+<pre>
+frenchPresentation = ("My name is *", "Je m'appelle *")
+</pre>
+    
+    <p>a) Write a function</p>
+    
+<pre>
+transformationApply :: Eq a => a -> ([a] -> [a]) -> 
+                       [a] -> ([a], [a]) -> Maybe [a]
+</pre>
+
+    <p>where <em>applying</em> a transformation to a list means that you match
+    the list against the first pattern and then, if the match succeeds,
+    substitute the result into the second list.</p>
+    
+<pre>
+transformationApply '*' id "My name is Zacharias"
+    frenchPresentation = Just "Je m'appelle Zacharias"
+</pre>
+
+    <p>The second parameter to this function is another function which is used
+    to transform the result of the match before the substitution is made. You
+    will later see how this is useful.</p>
+    
+    <p>b) Write a function which operates on a whole list of pattern
+    transformations</p>
+
+<pre>
+transformationsApply :: Eq a => a -> ([a] -> [a]) -> 
+                        [([a], [a])] -> [a] -> Maybe [a]
+</pre>
+
+    <p>This function uses <code>transformationApply</code> on the patterns in
+    the list until one succeeds. The result of that transformation is then
+    returned. If all patterns fail, the function returns <code>Nothing</code>.
+    Note that the two last parameters to this function are given in opposite
+    order, relative to the previous one.</p>
+    
+   
+    <h2>4. Chatterbot implementation</h2>
+   
+    <p>The main function in the Chatterbot module is shown below. It is
+    essentially an interactive loop which reads a line of input and then
+    responds by writing a line of output.</p>
+
+<pre>
+chatterbot :: String -> [(String, [String])] -> IO ()
+chatterbot botName botRules = do
+    putStrLn ("\n\nHi! I am " ++ botName 
+                              ++ ". How are you?")
+    botloop
+  where
+    brain = rulesCompile botRules
+    botloop = do
+      putStr "\n: "
+      question <- getLine
+      answer <- stateOfMind brain
+      putStrLn (botName ++ ": " 
+         ++ (present . answer . prepare) question)
+      if (not . endOfDialog) question 
+         then botloop 
+         else return ()
+</pre>   
+
+    <p>The <code>chatterBot</code> function takes as arguments
+    the name of the bot and a list of rules. The rules are converted from   
+    strings to
+    an internal format and bound to the local variable <code>brain</code>.
+    In each turn of the loop the function <code>stateOfMind</code> takes
+    the brain and generates a random response function <code>answer</code>.
+    The actual response is created by wrapping <code>answer</code> with
+    functions which do suitable formatting of input and output. By convention
+    we will do all work on lower case characters.</p>
+    
+    <p>You will now implement the functions used by the main program. While doing
+    so you will use the functions on patterns defined above. A chatterbot works
+    on strings, but you will not use the pattern functions on strings directly.
+    Instead you will apply them on lists of words, or <em>phrases</em>.</p>
+
+<pre>    
+type Phrase = [String]
+type PhrasePair = (Phrase, Phrase)
+type BotBrain = [(Phrase, [Phrase])]
+</pre>   
+
+    <p>The prelude has functions which make the conversion between strings
+    and phrases easy:</p>
+<pre>    
+words   :: String -> [String]
+unwords :: [String] -> String
+</pre>   
+
+    <p>One of the keys to the success of Eliza is a simple technique known as 
+    <em>reflection</em>. Reflecting a phrase means that you replace each
+    occurrence of a first person word or expression with the corresponding
+    second person word or expression and vice versa.</p>
+
+    <p>a) Write a function</p>
+<pre>    
+reflect :: Phrase -> Phrase
+</pre>   
+
+    <p>which tries to replace each word in a phrase with its corresponding word
+    in the map <code>reflections</code> below.</p>
+<pre>    
+reflections =
+  [ ("am",     "are"),
+    ("was",    "were"),
+    ("i",      "you"),
+    ("i'm",    "you are"),
+    ("i'd",    "you would"),
+    ("i've",   "you have"),
+    ("i'll",   "you will"),
+    ("my",     "your"),
+    ("me",     "you"),
+    ("are",    "am"),
+    ("you're", "i am"),
+    ("you've", "i have"),
+    ("you'll", "i will"),
+    ("your",   "my"),
+    ("yours",  "mine"),
+    ("you",    "me")
+  ]
+</pre>   
+
+    <p>For example:</p>
+
+<pre>    
+reflect ["i", "will", "never", "see", "my",
+         "reflection", "in", "your", "eyes"] =
+        ["you", "will", "never", "see", "your",
+         "reflection", "in", "my", "eyes"]
+</pre>   
+
+    <p>Hint: There is a prelude function which is particularly useful here.</p>
+
+    <p>b) Use the function <code>transformationsApply</code> you
+    implemented earlier to write the central chatterbot function</p>
+
+<pre>    
+rulesApply :: [PhrasePair] -> Phrase -> Phrase
+</pre>   
+
+    <p>which transforms a phrase according to a list of pattern
+    transformations, and where the intermediate result of the match is
+    reflected. Note that the suitable wildcard element is "*" rather
+    than '*' since we are working with phrases and not strings.</p>
+
+    <p>c) The rules for a chatterbot specify a number of possible responses for
+    each pattern transformation and the actual response is chosen randomly.
+    Write a function</p>
+
+<pre>    
+stateOfMind :: BotBrain -> IO (Phrase -> Phrase)
+</pre>   
+
+    <p>which is based on the function <code>rulesApply</code> and generates a
+    random response function from a <code>BotBrain</code> argument. For this
+    purpose you need the standard library module <code>System.Random</code>. The
+    following example shows how it can be used.</p>
+
+<pre>    
+import System.Random
+
+rollDice :: IO ()
+rollDice = do
+   r <- randomIO :: IO Float
+   putStrLn ("You rolled " ++ show (floor (6*r+1)))
+</pre>
+
+    <p>Note that <code>randomIO</code> has a monadic return type. Why?</p>
+
+    <p>Finally, you need a function which determines the end condition for a
+    dialog and three functions which convert between strings and
+    phrases:</p>
+
+<pre>
+endOfDialog :: String -> Bool    
+prepare :: String -> Phrase
+present :: Phrase -> String
+rulesCompile :: [(String, [String])] -> BotBrain
+</pre>   
+
+    <p>The end condition can be fairly simple:</p>
+
+<pre>
+endOfDialog = (=="quit") . map toLower
+</pre>   
+
+    <p>To present an answer not much needs to be done:</p>
+
+<pre>
+present = unwords
+</pre>   
+
+    <p>In preparing the input however it is useful to use the standard
+    library <code>Data.Char</code> to do some extra formatting. Make sure you
+    understand the following definition.</p>
+
+<pre>
+prepare = words . map toLower . 
+          filter (not . flip elem ".,:;*!#%&|")
+</pre>   
+
+    <p>d) Write the function <code>rulesCompile</code>.</p>
+
+    <p>Now you have a complete bot. It is time to test it. Have a nice chat
+    with Eliza!</p>
+
+    
+    <h2>5. Improvement</h2>
+    
+    <p>A difficulty in designing chatterbots is to avoid making the mimicking
+    too rigid. It can easily destroy the illusion of a listening person.</p>
+
+    <p>If, for example, you say <kbd>I am very very tired</kbd> you may get the
+    response <kbd>How long have you been very very tired?</kbd>, but better
+    response would have been <kbd>How long have you been tired?</kbd>. A
+    general approach which adds a lot of flexibility is to <em>reduce</em>
+    the input by removing some syntactic variants of questions which are
+    essentially the same.</p>
+   
+<pre>
+reductions :: [PhrasePair]
+reductions = (map.map2) (words, words)
+  [ ( "please *", "*" ),
+    ( "can you *", "*" ),
+    ( "could you *", "*" ),
+    ( "tell me if you are *", "are you *" ),
+    ( "tell me who * is", "who is *" ),
+    ( "tell me what * is", "what is *" ),
+    ( "do you know who * is", "who is *" ),
+    ( "do you know what * is", "what is *" ),
+    ( "are you very *", "are you *" ),
+    ( "i am very *", "i am *" ),
+    ( "hi *", "hello *")
+  ]
+</pre>   
+    <p>Start by modifying the definition of <code>prepare</code>.</p>
+    
+<pre>
+prepare = reduce . words . map toLower . 
+          filter (not . flip elem ".,:;*!#%&|") 
+</pre>   
+
+    <p>and define the function <code>reduce</code> as</p>
+    
+<pre>
+reduce :: Phrase -> Phrase
+reduce = reductionsApply reductions
+</pre>   
+    
+    <p>Write the function</p>
+    
+<pre>
+reductionsApply :: [PhrasePair] -> Phrase -> Phrase   
+</pre>   
+     
+    <p>You can try the new implementation with this question:</p>
+    
+    <blockquote><kbd>
+    "can you please tell me what Haskell is"<br/> 
+    </kbd></blockquote>
+    <br/>
+
+    <h1>Provided material</h1>
+
+    <p>The partial solution described above can be downloaded
+    <a href="http://fileadmin.cs.lth.se/cs/Education/EDAN40/assignment1/assignment1.zip">here</a>. 
+    The archive contains four files:
+     <ul>
+       <li><code>Utilities.hs</code></li>
+       <li><code>Pattern.hs</code></li>
+       <li><code>Chatterbot.hs</code></li>
+       <li><code>Eliza.hs</code></li>
+    </ul></p>
+    
+    <p>The functions you need to write are marked
+    <code>{- TO BE WRITTEN -}</code>. Dummy solutions are included in order to
+    make the program type check although it is not finished.</p>
+
+    
+    <h1>Submission</h1>
+
+   <p><ul><li>
+       <b>What to submit:</b><br>
+       The two files <code>Pattern.hs</code> and
+       <code>Chatterbot.hs</code> completed with your solutions to
+       tasks 2, 3a-b, 4a-d and 5. To pass, your programs must (1)
+       work correctly and (2) be highly readable, written in point-free style.</li>
+       <li><b>How to submit:</b><br>
+       E-mail to <a href="mailto:fp@cs.lth.se">fp@cs.lth.se</a> with a
+       subject line of "<code>Assignment 1 by </code><em>username1</em><code>
+       and </code><em>username2</em>", where <em>username1</em> and
+       <em>username2</em> are your logins (e.g. <code>ada13jma</code>). Replies 
+       will be sent to the addresses you have specified in your StIL account, so 
+       please make sure that forwarding works correctly.<br>
+     In the mail you should state how many hours per person
+       you have spent on this assignment.</li>
+     <li>
+       <b>Deadline:</b><br>
+       November 13, 2013.</li>
+    </ul></p>
+
+			<ul class="linkIconList" style="padding: 10px 0 0 20px; margin: 0"><li id="print">
+			<div id="LINK_PRINTABLE"><a href="&#35;" onclick="printWindow(location.href,'2');return false;">Print version</a></div></li></ul>
+			<div class="customFoot"><!--###customFoot### begin -->
+				<div class="line"><!--###line### begin --><!-- --><!--###line### end --></div>
+				<p>
+					Page Manager:&nbsp;Jacek Malec<br />Webmaster:&nbsp;<a href="mailto:webmaster@lth.se">webmaster@lth.se</a><br />Last updated:&nbsp;2013-11-06
+				</p>
+			<!--###customFoot### end --></div>
+		<!--###contentMain### end --></div>
+	<!--###placeA### end --></div>
+</div>
+
+
+<div style="clear: both;"><!-- --></div>
+<!--###columnRight### end --></div>
+<!--###rightTd### end --></div>
+<div style="clear: both; width: 754px;" class="bottomTd"><!--###bottomTd### begin -->
+<div class="mainFootDiv"><!--###mainFootDiv### begin -->
+<div class="contentFoot"><!--###contentFoot### begin -->
+<a href="typo3/index.php?redirect_url=../index.php?id=44729" >Dept. of Computer Science, LTH, P.O. Box 118, 221 00 Lund, Sweden. Phone: +46 46 2220000</a>
+<!--###contentFoot### end --></div>
+<div class="clear"><!--###clear### begin --><!-- --><!--###clear### end --></div>
+<!--###mainFootDiv### end --></div>
+<!--###bottomTd### end --></div>
+<div style="clear: both;" class="startBottomShadow"><!--###startBottomShadow### begin --><!-- --><!--###startBottomShadow### end --></div>
+<!--###leftColBg### end --></div>
+<!--###templateMain### end --></div>
+</div>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-12582595-1");
+pageTracker._trackPageview();
+</script>
+
+
+
+
+</body>
+</html>
