@@ -65,9 +65,18 @@ matchCheck = matchTest == Just testSubstitutions
 --------------------------------------------------------
 
 -- Applying a single pattern
+--                              wildcard -> func -> inputString -> (p1,p2)
 transformationApply :: Eq a => a -> ([a] -> [a]) -> [a] -> ([a], [a]) -> Maybe [a]
-transformationApply _ _ _ _ = Nothing
-{- TO BE WRITTEN -}
+{-transformationApply w f input (p1, p2) = Nothing-}
+transformationApply w f input (p1, p2) = subIfNoNothing w p2 f (match w p1 input)
+{-transformationApply w f input (p1, p2) = Just (substitute w p2 (fromJust (match w p1 input)))-}
+{-transformationApply w f input (p1, p2) = case (match w p1 input) of-}
+                                            {-Just n -> Just (substitute w p2 (f fromJust(n)))-}
+                                            {-Nothing -> Nothing-}
+
+subIfNoNothing :: Eq a => a -> [a] -> ([a] -> [a]) -> Maybe [a] -> Maybe [a]
+subIfNoNothing _ _ _ Nothing = Nothing
+subIfNoNothing w p2 f matched = Just (substitute w p2 (f (fromJust (matched))))
 
 
 -- Applying a list of patterns until one succeeds
