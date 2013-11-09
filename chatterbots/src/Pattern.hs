@@ -33,16 +33,10 @@ match w pl@(p:ps) sl@(s:ss)
 
 -- Helper function to match
 singleWildcardMatch, longerWildcardMatch :: Eq a => [a] -> [a] -> Maybe [a]
-singleWildcardMatch [] [] = Just []
-{-singleWildcardMatch (wc:ps) (x:xs)-}
-            {-| wc == x = Just (wc :  singleWildcardMatch ps xs)-}
-            {-| otherwise = Nothing-}
-            {-= match (wc:ps) (x:xs)-}
-singleWildcardMatch (wc:ps) (x:xs) = if isJust (match wc ps xs ) then Just [x] else Nothing 
+singleWildcardMatch (wc:ps) (x:xs) = mmap (x:) (match wc ps xs) 
 
+longerWildcardMatch (wc:ps) (x:xs) = mmap (x:) (match wc (wc:ps) xs)
 
-{-longerWildcardMatch (wc:ps) (x:xs) =  if isJust (\res -> res = (match wc (wc:ps) xs)) then Just ([x] : (fromJust res)) else Nothing-}
-longerWildcardMatch (wc:ps) (x:xs) = Just (x : fromJust (match wc (wc:ps) xs))
 
 
 
