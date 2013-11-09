@@ -1,6 +1,6 @@
 module Pattern where
 import Utilities
-import Data.Maybe(isJust, fromJust)
+import Data.Maybe(isJust, fromJust, fromMaybe)
 
 
 -------------------------------------------------------
@@ -39,7 +39,6 @@ longerWildcardMatch (wc:ps) (x:xs) = mmap (x:) (match wc (wc:ps) xs)
 
 
 
-
 -- Test cases --------------------
 
 testPattern =  "a=*;"
@@ -61,17 +60,7 @@ matchCheck = matchTest == Just testSubstitutions
 -- Applying a single pattern
 --                              wildcard -> func -> inputString -> (p1,p2)
 transformationApply :: Eq a => a -> ([a] -> [a]) -> [a] -> ([a], [a]) -> Maybe [a]
-{-transformationApply w f input (p1, p2) = Nothing-}
-transformationApply w f input (p1, p2) = subIfNoNothing w p2 f (match w p1 input)
-{-transformationApply w f input (p1, p2) = Just (substitute w p2 (fromJust (match w p1 input)))-}
-{-transformationApply w f input (p1, p2) = case (match w p1 input) of-}
-                                            {-Just n -> Just (substitute w p2 (f fromJust(n)))-}
-                                            {-Nothing -> Nothing-}
-
-subIfNoNothing :: Eq a => a -> [a] -> ([a] -> [a]) -> Maybe [a] -> Maybe [a]
-subIfNoNothing _ _ _ Nothing = Nothing
-subIfNoNothing w p2 f matched = Just (substitute w p2 (f (fromJust (matched))))
-
+transformationApply w f input (p1, p2) = mmap ((substitute w p2) . f) (match w p1 input)
 
 -- Applying a list of patterns until one succeeds
 transformationsApply :: Eq a => a -> ([a] -> [a]) -> [([a], [a])] -> [a] -> Maybe [a]
