@@ -64,6 +64,11 @@ transformationApply w f input (p1, p2) = mmap ((substitute w p2) . f) (match w p
 
 -- Applying a list of patterns until one succeeds
 transformationsApply :: Eq a => a -> ([a] -> [a]) -> [([a], [a])] -> [a] -> Maybe [a]
-transformationsApply _ _ _ _ = Nothing
-{- TO BE WRITTEN -}
+{-transformationsApply w f plist input =  head (dropWhile (not . isJust) (map (transformationApply w f input) plist))-}
+transformationsApply w f plist input =  head (((filter isJust) (map (transformationApply w f input) plist)) ++ [Nothing])
 
+
+transApplyExpected = "Je m'appelle Zacharias"
+transApplyTestList = [("I can't *", "Jag kan inte *"), ("My name is *", "Je m'appelle *"), ("Why don't you *", "Varför gör du inte *")]
+transApplyTest = transformationsApply '*' id transApplyTestList "My name is Zacharias"
+transApplyCheck =  transApplyTest == Just transApplyExpected
