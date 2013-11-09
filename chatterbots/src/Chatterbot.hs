@@ -27,8 +27,9 @@ type BotBrain = [(Phrase, [Phrase])]
 --------------------------------------------------------
 
 stateOfMind :: BotBrain -> IO (Phrase -> Phrase)
-{- TO BE WRITTEN -}
-stateOfMind _ = return id
+stateOfMind brain = do
+    rnd <- randomIO :: IO Float
+    return (rulesApply (map (map2 (id, (pick rnd))) brain))
 
 rulesApply :: [PhrasePair] -> Phrase -> Phrase
 rulesApply ppairs phrase =  try (transformationsApply "*" reflect ppairs) phrase
