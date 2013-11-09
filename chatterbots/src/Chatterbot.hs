@@ -3,6 +3,7 @@ import Utilities
 import Pattern
 import System.Random
 import Data.Char
+import Debug.Trace
 
 chatterbot :: String -> [(String, [String])] -> IO ()
 chatterbot botName botRules = do
@@ -33,6 +34,7 @@ stateOfMind brain = do
 
 rulesApply :: [PhrasePair] -> Phrase -> Phrase
 rulesApply ppairs phrase =  try (transformationsApply "*" reflect ppairs) phrase
+{-rulesApply ppairs phrase =  trace ("ppairs: " ++ show ppairs) $ try (transformationsApply "*" reflect ppairs) phrase-}
 
 reflect :: Phrase -> Phrase
 {-reflect = id-}
@@ -83,8 +85,7 @@ prepare :: String -> Phrase
 prepare = reduce . words . map toLower . filter (not . flip elem ".,:;*!#%&|") 
 
 rulesCompile :: [(String, [String])] -> BotBrain
-{- TO BE WRITTEN -}
-rulesCompile _ = []
+rulesCompile ppairs = map (map2 ((words . map toLower), (map (words . map toLower)))) ppairs
 
 
 --------------------------------------
