@@ -35,8 +35,22 @@ rulesApply :: [PhrasePair] -> Phrase -> Phrase
 rulesApply _ = id
 
 reflect :: Phrase -> Phrase
-{- TO BE WRITTEN -}
-reflect = id
+{-reflect = id-}
+{-reflect p =  map (try . (tryReplace reflections))  p-}
+reflect p =  map (tryReplace reflections)  p
+        
+tryReplace :: Eq a => [(a,a)] -> a -> a
+tryReplace [] p = p
+tryReplace (r:rs) p 
+           | fst r == p = snd r
+           | otherwise = tryReplace rs p
+
+
+reflectTestList =  ["i", "will", "never", "see", "my", "reflection", "in", "your", "eyes"]
+reflectTestExpected = ["you", "will", "never", "see", "your", "reflection", "in", "my", "eyes"]
+reflectTest = reflect reflectTestList
+reflectCheck = reflectTest == reflectTestExpected
+
 
 reflections =
   [ ("am",     "are"),
