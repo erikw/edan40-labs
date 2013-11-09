@@ -31,19 +31,17 @@ stateOfMind :: BotBrain -> IO (Phrase -> Phrase)
 stateOfMind _ = return id
 
 rulesApply :: [PhrasePair] -> Phrase -> Phrase
-{- TO BE WRITTEN -}
-rulesApply _ = id
+rulesApply ppairs phrase =  try (transformationsApply "*" reflect ppairs) phrase
 
 reflect :: Phrase -> Phrase
 {-reflect = id-}
 {-reflect p =  map (try . (tryReplace reflections))  p-}
-reflect p =  map (tryReplace reflections)  p
-        
-tryReplace :: Eq a => [(a,a)] -> a -> a
-tryReplace [] p = p
-tryReplace (r:rs) p 
-           | fst r == p = snd r
-           | otherwise = tryReplace rs p
+reflect p =  map (tryReplace reflections) p
+            where
+            tryReplace [] p = p
+            tryReplace (r:rs) p 
+                    | fst r == p = snd r
+                    | otherwise = tryReplace rs p
 
 
 reflectTestList =  ["i", "will", "never", "see", "my", "reflection", "in", "your", "eyes"]
