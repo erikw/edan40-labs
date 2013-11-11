@@ -20,11 +20,9 @@ substitute w (p:ps) s
 -- bound to the wildcard in the pattern list.
 --              wildcard t s
 match :: Eq a => a -> [a] -> [a] -> Maybe [a]
-{-match w [] [] = Nothing-}
-{-match w [] s = Nothing-}
 match w [] [] = Just []
 match w [] _ = Nothing
-match w p [] = Nothing
+match w _ [] = Nothing
 match w pl@(p:ps) sl@(s:ss)
     | p /= w && p /= s = Nothing
     | p /= w && p == s = match w ps ss
@@ -68,6 +66,7 @@ transformationsApply :: Eq a => a -> ([a] -> [a]) -> [([a], [a])] -> [a] -> Mayb
 transformationsApply w f plist input =  head (((filter isJust) (map (transformationApply w f input) plist)) ++ [Nothing])
 
 
+-- Test cases --------------------
 transApplyExpected = "Je m'appelle Zacharias"
 transApplyTestList = [("I can't *", "Jag kan inte *"), ("My name is *", "Je m'appelle *"), ("Why don't you *", "Varför gör du inte *")]
 transApplyTest = transformationsApply '*' id transApplyTestList "My name is Zacharias"
