@@ -33,16 +33,10 @@ stateOfMind brain = do
     return (rulesApply $ (map . map2) (id, (pick rnd)) brain)
 
 rulesApply :: [PhrasePair] -> Phrase -> Phrase
-rulesApply ppairs phrase =  try (transformationsApply "*" reflect ppairs) phrase
+rulesApply =  try .transformationsApply "*" reflect 
 
 reflect :: Phrase -> Phrase
-reflect p =  map (tryReplace reflections) p
-            where
-            tryReplace [] p = p
-            tryReplace (r:rs) p 
-                    | fst r == p = snd r
-                    | otherwise = tryReplace rs p
-
+reflect =  map (try (flip lookup reflections))
 
 reflectTestList =  ["i", "will", "never", "see", "my", "reflection", "in", "your", "eyes"]
 reflectTestExpected = ["you", "will", "never", "see", "your", "reflection", "in", "my", "eyes"]
@@ -108,4 +102,4 @@ reduce :: Phrase -> Phrase
 reduce = reductionsApply reductions
 
 reductionsApply :: [PhrasePair] -> Phrase -> Phrase
-reductionsApply ppairs phrase =  fix (try (transformationsApply "*" id ppairs )) phrase
+reductionsApply =  fix . try . transformationsApply "*" id

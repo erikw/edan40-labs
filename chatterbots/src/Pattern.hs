@@ -64,9 +64,7 @@ transformationApply w f input (p1, p2) = mmap ((substitute w p2) . f) (match w p
 
 -- Applying a list of patterns until one succeeds
 transformationsApply :: Eq a => a -> ([a] -> [a]) -> [([a], [a])] -> [a] -> Maybe [a]
-{-transformationsApply w f plist input =  head (dropWhile (not . isJust) (map (transformationApply w f input) plist))-}
-transformationsApply w f plist input =  head (((filter isJust) (map (transformationApply w f input) plist)) ++ [Nothing])
-
+transformationsApply w f plist input =  foldr1 orElse (map (transformationApply w f input) plist)
 
 -- Test cases --------------------
 transApplyExpected = "Je m'appelle Zacharias"
