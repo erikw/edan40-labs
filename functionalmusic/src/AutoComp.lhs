@@ -11,40 +11,6 @@
 > import Haskore hiding(Key)
 > import Control.Exception hiding (assert)
 > 
->{-> data BassStyle = Basic | Calypso | Boogie  deriving (Eq, Show)-}
->{-> getBassStylePatter :: BassStyle -> [Int]-}
->{-> getBassStylePatter (Basic bs) = [1, 5]-}
-> -- 0 means silence.
->
->{-> type ChordProgression = [[Chord]]-}
->
->{->-}
->{-> autoBass :: BassStyle -> Key -> ChordProgression -> Music  --- TODO select scale based on key.-}
->{-> autoBass (Basic bs) k cp = foldr1 :+: (map (genBassBar k (getBassStylePatter bs)) cp)-}
->{->-}
->{-> genBassBar :: [Chord] -> Key -> [Int] -> Music-}
->{-> genBassBar chrds key bsPatt = foldr1 :+: (map (Note (genPitch (scalePattern Key (first (first chrds)))) (1%2) bsPatt))-}
->{->-}
->{-> ionian :: [Int] -}
->{-> ionian  = [0, 2, 4, 5, 7, 9, 11]-}
->{-> scalePattern :: Key -> AbsPitch-}
->{-> scalePattern key pitch =  -}
->
->
->
->{-> genPitch :: Chord -> [Int] -> Int -> Pitch -- TODO assumes C scale-}
->{-> genPitch chrdRoot chrdPttrn indx = trans (chrdPttrn !! indx) (pitch (head chrdRoot))-}
->{->-}
->{-> key2keymajor :: Key -> KeyClass-}
->{-> key2keymajor k = fst (pitch k)-}
->
->
->
->
->
->
->
->
 >
 >
 >
@@ -52,7 +18,7 @@
 > type BassStyle = ([Int], Ratio Int)
 > basicBass, calypsoBass, boogieBass :: BassStyle
 > basicBass = ([0,4], 1%2)
-> calypsoBass = ([-1, -1, 0, 2, -1, -1, 0, 2], 1%8)
+> calypsoBass = ([-1, -1, 0, 2, -1, -1, 0, 2], 1%8) -- TODO handle -1
 > boogieBass = ([0, 4, 5, 4, 0, 4, 5, 4], 1%8)
 >
 >
@@ -95,18 +61,44 @@
 > scalePattern key chord = patternFromIndex rootIndex
 > 			where rootIndex = scaleIndex (head chord) key
 > 				
-> genBassChord :: Key -> Chord -> BassStyle -> Chord
-> genBassChord key chord (style,_) = map ((!!) pattern) modStyle
+> modround :: Int -> Int -> Int
+> modround i chrd = mod (i+chrd) 12
+>
+> genBassChord :: Key ->  BassStyle -> (Chord, Ratio Int) -> Chord
+> genBassChord key (style,_) (chord, crtio) = map (work modPattern) redStyle
 >	 			where 
 >	 			pattern = scalePattern key chord
->				modround i chrd = mod (i+chrd) 12
->				modStyle = (map (modround (head chord)) style)
+>	 			redStyle = take (round $ (rtof crtio) * (float (length style))) style
+>				modPattern = (map (modround (head chord)) pattern)
+>				work pttr e 
+>					| e == -1 = e
+>					| otherwise = pttr !! e
+>
+> genBassTest = genBassChord cMajor basicBass ([7, 11, 2], 1%1)
+> genBassCheck = genBassTest == [7, 2]
+
+> type ChordProgression = [(Chord, Ratio Int)]
+>
+> genBassChordNote :: Key ->  BassStyle -> (Chord, Ratio Int) -> Music
+> genBassChordNote key style@(s, dur) bassChord =  foldr1 (:+:) [if pi == -1 then Rest (dur) else Note (pitch pi) (dur) [Volume 100] | pi <- chord]
+> 					where chord = genBassChord key style bassChord
+>
+> -- Broken test.
+>{-> calypsoProgress  = [(C, 1), (F, 1%2), (C, 1%2)]-}
+>{-> genBassChordNoteTest = genBassChordNote cMajor calypsoBass calypsoProgress-}
+>{-> genBassChordNoteCheck = genBassTest == [Rest (1%8), Rest (1%8), Note 0 (1%8) [Volume 100], Note 4 (1%8) [Volume 100], Rest (1%8), Rest (1%8),Note 0 (1%8) [Volume 100], Note 4 (1%8) [Volume 100]]-}
+>
+> autoBass :: BassStyle -> Key -> ChordProgression -> Music
+> autoBass style key cprog = foldr1 (:+:) (map (genBassChordNote key style) cprog)
 >
 >
-> genBassTest = genBassChord cMajor [7, 10, 2] basicBass 
-> genBassCheck = genBassTest == [7, 1]
+> twinklePart1  = [(C, 1), (F, 1%2), (C, 1%2), (G, 1%2), (C, 1%2), (G, 1%2), (C, 1%2)] -- TODO generate the whole cord from the chord root given.
+> twinklePart2  = [(C, 1%2), (G, 1%2),(C, 1%2), (G, 1%2), (C, 1%2), (G, 1%2),(C, 1%2), (G, 1%2)]
+> twinkleComp = twinklePart1 ++ twinklePart2 ++ twinklePart1
+> twinkleProgression = [([pitchClass pi], dur) | (pi,dur) <- twinkleComp]
+> twinkleBass = autoBass boogieBass cMajor twinkleProgression 
 >
-> main = scaleIndex 7 cMajor
+> main = Instr "piano" (Tempo 3 (Phrase [Dyn SF] twinkleBass))
 
 \end{verbatim} }
 
