@@ -12,9 +12,9 @@
 > import Control.Exception hiding (assert)
 > 
 >
->
->
->
+
+==============Bass=====================
+
 > type BassStyle = ([Int], Ratio Int)
 > basicBass, calypsoBass, boogieBass :: BassStyle
 > basicBass = ([0,4], 1%2)
@@ -52,22 +52,24 @@
 > scaleIndex :: AbsPitch -> Key -> Int
 > scaleIndex pitch key = fromJust $ elemIndex (mod pitch 12) key
 >
-> patternFromIndex :: Int -> [Int]
-> patternFromIndex index = scPatterns !! scIndex
-> 			where scIndex = fst (scaleTable !! index) -- TODO how to pick between major/minor?
+> patternFromIndex :: Int -> ChordType -> [Int]
+> patternFromIndex index cType = scPatterns !! scIndex
+> 			where scIndex 
+> 				| cType == major = fst (scaleTable !! index)
+> 				| otherwise = snd (scaleTable !! index)
 
 > -- Get a scale pattern for a chord given a key.  
-> scalePattern :: Key -> Chord -> [Int]
-> scalePattern key chord = patternFromIndex rootIndex
+> scalePattern :: Key -> Chord -> ChordType -> [Int]
+> scalePattern key chord cType = patternFromIndex rootIndex cType
 > 			where rootIndex = scaleIndex (head chord) key
 > 				
 > modround :: Int -> Int -> Int
 > modround i chrd = mod (i+chrd) 12
 >
-> genBassChord :: Key ->  BassStyle -> (Chord, Ratio Int) -> Chord
-> genBassChord key (style,_) (chord, crtio) = map (work modPattern) redStyle
+> genBassChord :: Key ->  BassStyle -> (Chord, ChordType, Ratio Int) -> Chord
+> genBassChord key (style,_) (chord, ctype, crtio) = map (work modPattern) redStyle
 >	 			where 
->	 			pattern = scalePattern key chord
+>	 			pattern = scalePattern key chord ctype
 >	 			redStyle = take (round $ (rtof crtio) * (float (length style))) style
 >				modPattern = (map (modround (head chord)) pattern)
 >				oct =  snd (pitch $ head chord)
@@ -75,42 +77,64 @@
 >					| e == -1 = e
 >					| otherwise = oct * 12 + (pttr !! e)
 >
-> genBassTest = genBassChord cMajor basicBass ([7, 11, 2], 1%1)
-> genBassCheck = genBassTest == [7, 2]
-
-> type ChordProgression = [(Chord, Ratio Int)]
+> type ChordType = [Int]
+> major, minor :: ChordType
+> major = [0, 2, 4]
+> minor = [5, 0, 2]
 >
-> genBassChordNote :: Key ->  BassStyle -> (Chord, Ratio Int) -> Music
+> type ChordProgression = [(Chord, ChordType, Ratio Int)]
+>
+> genBassChordNote :: Key ->  BassStyle -> (Chord, ChordType, Ratio Int) -> Music
 > genBassChordNote key style@(s, dur) bassChord =  foldr1 (:+:) [if pi == -1 then Rest (dur) else Note (pitch pi) (dur) [Volume 50] | pi <- chord]
 > 					where chord = genBassChord key style bassChord
 >
 > autoBass :: BassStyle -> Key -> ChordProgression -> Music
 > autoBass style key cprog = foldr1 (:+:) (map (genBassChordNote key style) cprog)
 >
->
+
+=============Voicing===============
+
 > autoChord :: Key -> ChordProgression -> Music
 >{-> autoChord key cp = foldr1 (:+:) (map ((foldr1 (:=:)) . playChord key) cp)-}
 > autoChord key cp = genChord key [] cp
 >
 > genChord :: Key -> Chord -> ChordProgression -> Music
 > genChord _ _ [] = Note (C, 0) 0 [Volume 0]
-> genChord key prevChrd ((chord, dur):cps) =  chrdMusic :+: genChord key chord cps
-> 				where chrdMusic = foldr1 (:=:) [Note (pitch pi) dur [Volume 50] | pi <- bestMatch key chord]
->{-> 				where curChrd = Note (C, 0) dur [Volume 50]-}
+> genChord key prevChrd ((chord, chordType, dur):cps) =  chrdMusic :+: genChord key chord cps
+> 				where 
+> 					chrdMusic = foldr1 (:=:) [Note (pitch pi) dur [Volume 50] | pi <- bestMatch key realChord]
+> 					realChord = makeChord key chord chordType
+>
+> makeChord :: Key -> Chord -> ChordType -> Chord
+> makeChord key chord cType = map ((!!) modPattern) cType
+> 			where 
+>	 			scPattern = scalePattern key chord cType
+>				modPattern = (map (modround (head chord)) scPattern)
 >
 > bestMatch :: Key -> Chord -> Chord
 > bestMatch key chord = chord
+>{-> bestMatch key chord = head candidates-}
+>{-> 		where candidates = getCandidates chord-}
 >
+>{-> getCandidates :: Chord -> [Chord]-}
+>{-> getCandidates chord = -}
+>
+>
+>
+
+=====================Twinkle=======================
+
 > oct = 5-1 -- TODO why -1?
 > twinklePart1  = [((C,oct), 1), ((F,oct), 1%2), ((C,oct), 1%2), ((G,oct), 1%2), ((C,oct), 1%2), ((G,oct), 1%2), ((C,oct), 1%2)] -- TODO generate the whole cord from the chord root given.
 > twinklePart2  = [((C,oct), 1%2), ((G,oct), 1%2),((C,oct), 1%2), ((G,oct), 1%2), ((C,oct), 1%2), ((G,oct), 1%2),((C,oct), 1%2), ((G,oct), 1%2)]
 > twinkleComp = twinklePart1 ++ twinklePart2 ++ twinklePart1
-> twinkleProgression = [([absPitch (pi, octc)], dur) | ((pi,octc),dur) <- twinkleComp]
+>{-> twinkleProgression = [([absPitch (pi, octc)], major, dur) | ((pi,octc),dur) <- twinkleComp]-}
+> twinkleProgression = [([absPitch (pi, octc)], major, dur) | ((pi,octc),dur) <- twinkleComp]
 > twinkleBass = autoBass basicBass cMajor twinkleProgression 
 > twinkleVoicing = autoChord cMajor twinkleProgression
 >
 >
-> twinkle = Instr "piano" (Tempo 2.2 (Phrase [Dyn SF] twinkleBass)) :=: Instr "piano" (Tempo 2.2 (Phrase [Dyn SF] twinkleVoicing))
+> twinkle = Instr "piano" (Tempo 2.2 (Phrase [Dyn SF]  twinkleVoicing)) 
 
 \end{verbatim} }
 
