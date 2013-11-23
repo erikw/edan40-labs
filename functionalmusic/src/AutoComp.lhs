@@ -18,7 +18,7 @@
 > type BassStyle = ([Int], Ratio Int)
 > basicBass, calypsoBass, boogieBass :: BassStyle
 > basicBass = ([0,4], 1%2)
-> calypsoBass = ([-1, -1, 0, 2, -1, -1, 0, 2], 1%8) -- TODO handle -1
+> calypsoBass = ([-1, -1, 0, 2, -1, -1, 0, 2], 1%8)
 > boogieBass = ([0, 4, 5, 4, 0, 4, 5, 4], 1%8)
 >
 >
@@ -96,9 +96,9 @@
 > twinklePart2  = [(C, 1%2), (G, 1%2),(C, 1%2), (G, 1%2), (C, 1%2), (G, 1%2),(C, 1%2), (G, 1%2)]
 > twinkleComp = twinklePart1 ++ twinklePart2 ++ twinklePart1
 > twinkleProgression = [([pitchClass pi], dur) | (pi,dur) <- twinkleComp]
-> twinkleBass = autoBass boogieBass cMajor twinkleProgression 
+> twinkleBass = autoBass basicBass cMajor twinkleProgression 
 >
-> main = Instr "piano" (Tempo 3 (Phrase [Dyn SF] twinkleBass))
+> twinkle = Instr "piano" (Tempo 3 (Phrase [Dyn SF] twinkleBass))
 
 \end{verbatim} }
 
