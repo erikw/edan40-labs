@@ -50,7 +50,7 @@
 >
 > -- Get the index of a given pitch in a key.
 > scaleIndex :: AbsPitch -> Key -> Int
-> scaleIndex pitch key = fromJust $ elemIndex pitch key
+> scaleIndex pitch key = fromJust $ elemIndex (mod pitch 12) key
 >
 > patternFromIndex :: Int -> [Int]
 > patternFromIndex index = scPatterns !! scIndex
@@ -70,9 +70,10 @@
 >	 			pattern = scalePattern key chord
 >	 			redStyle = take (round $ (rtof crtio) * (float (length style))) style
 >				modPattern = (map (modround (head chord)) pattern)
+>				oct =  snd (pitch $ head chord)
 >				work pttr e 
 >					| e == -1 = e
->					| otherwise = pttr !! e
+>					| otherwise = oct * 12 + (pttr !! e)
 >
 > genBassTest = genBassChord cMajor basicBass ([7, 11, 2], 1%1)
 > genBassCheck = genBassTest == [7, 2]
@@ -80,25 +81,21 @@
 > type ChordProgression = [(Chord, Ratio Int)]
 >
 > genBassChordNote :: Key ->  BassStyle -> (Chord, Ratio Int) -> Music
-> genBassChordNote key style@(s, dur) bassChord =  foldr1 (:+:) [if pi == -1 then Rest (dur) else Note (pitch pi) (dur) [Volume 100] | pi <- chord]
+> genBassChordNote key style@(s, dur) bassChord =  foldr1 (:+:) [if pi == -1 then Rest (dur) else Note (pitch pi) (dur) [Volume 50] | pi <- chord]
 > 					where chord = genBassChord key style bassChord
->
-> -- Broken test.
->{-> calypsoProgress  = [(C, 1), (F, 1%2), (C, 1%2)]-}
->{-> genBassChordNoteTest = genBassChordNote cMajor calypsoBass calypsoProgress-}
->{-> genBassChordNoteCheck = genBassTest == [Rest (1%8), Rest (1%8), Note 0 (1%8) [Volume 100], Note 4 (1%8) [Volume 100], Rest (1%8), Rest (1%8),Note 0 (1%8) [Volume 100], Note 4 (1%8) [Volume 100]]-}
 >
 > autoBass :: BassStyle -> Key -> ChordProgression -> Music
 > autoBass style key cprog = foldr1 (:+:) (map (genBassChordNote key style) cprog)
 >
 >
-> twinklePart1  = [(C, 1), (F, 1%2), (C, 1%2), (G, 1%2), (C, 1%2), (G, 1%2), (C, 1%2)] -- TODO generate the whole cord from the chord root given.
-> twinklePart2  = [(C, 1%2), (G, 1%2),(C, 1%2), (G, 1%2), (C, 1%2), (G, 1%2),(C, 1%2), (G, 1%2)]
+> oct = 5-1 -- TODO why -1?
+> twinklePart1  = [((C,oct), 1), ((F,oct), 1%2), ((C,oct), 1%2), ((G,oct), 1%2), ((C,oct), 1%2), ((G,oct), 1%2), ((C,oct), 1%2)] -- TODO generate the whole cord from the chord root given.
+> twinklePart2  = [((C,oct), 1%2), ((G,oct), 1%2),((C,oct), 1%2), ((G,oct), 1%2), ((C,oct), 1%2), ((G,oct), 1%2),((C,oct), 1%2), ((G,oct), 1%2)]
 > twinkleComp = twinklePart1 ++ twinklePart2 ++ twinklePart1
-> twinkleProgression = [([pitchClass pi], dur) | (pi,dur) <- twinkleComp]
+> twinkleProgression = [([absPitch (pi, octc)], dur) | ((pi,octc),dur) <- twinkleComp]
 > twinkleBass = autoBass basicBass cMajor twinkleProgression 
 >
-> twinkle = Instr "piano" (Tempo 3 (Phrase [Dyn SF] twinkleBass))
+> twinkle = Instr "piano" (Tempo 2.2 (Phrase [Dyn SF] twinkleBass))
 
 \end{verbatim} }
 
