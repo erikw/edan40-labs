@@ -24,10 +24,10 @@
 >
 > scPatterns :: [[Int]]
 > scPatterns = [
->		[0, 2, 4, 5, 7, 9, 11], 		-- (Major)
+>		[0, 2, 4, 5, 7, 9, 11],	-- (Major)
 >		[0, 2, 4, 6, 7, 9, 11],
 >		[0, 2, 4, 5, 7, 9, 10],
->		[0, 2, 3, 5, 7, 8, 10], 		-- (Minor)
+>		[0, 2, 3, 5, 7, 8, 10], -- (Minor)
 >		[0, 2, 3, 5, 7, 9, 10],
 >		[0, 1, 3, 5, 7, 8, 10]
 >		]
@@ -108,24 +108,24 @@
 > genChord _ _ [] = c 0 0 [Volume 0]
 > genChord key prevChrd ((chord, chordType, dur):cps) =  chrdComp :+: genChord key chord cps
 > 				where
-> 					chrdComp = foldr1 (:=:) [Note (pitch pi) dur [Volume 50] | pi <- bestMatch key realChord]
-> 					realChord = makeChord key chord chordType
+> 					chrdComp = foldr1 (:=:) [Note (pitch pi) dur [Volume 50] | pi <- bestMatch key fullChord]
+> 					fullChord = makeChord key chord chordType
 >
 > makeChord :: Key -> Chord -> ChordType -> Chord
-> makeChord key chord cType = map ((!!) modPattern) cType
+> makeChord key chord cType = map ((+) (head chord)) (map ((!!) modPattern) cType)
 > 			where
 >			modPattern = map (modround (head chord)) scPattern
 >	 		scPattern = scalePattern key chord cType
 >
 > bestMatch :: Key -> Chord -> Chord
-> bestMatch key chord = chord
->{-> bestMatch key chord = head candidates-}
->{-> 		where candidates = getCandidates chord-}
+> bestMatch key chord = map limitPitch chord
 >
->{-> getCandidates :: Chord -> [Chord]-}
->{-> getCandidates chord = -}
->
->
+> -- Move the pitch in the desired range of E4-G5
+> limitPitch :: AbsPitch -> AbsPitch
+> limitPitch pi 
+> 	| pi < (pitchClass E + 4 * 12) = limitPitch (pi + 12)
+> 	| pi > (pitchClass G + 5 * 12) = limitPitch (pi - 12)
+> 	| otherwise = pi
 >
 
 
