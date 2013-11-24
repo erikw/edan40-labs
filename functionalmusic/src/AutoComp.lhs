@@ -106,10 +106,11 @@
 >
 > genChord :: Key -> Chord -> ChordProgression -> Music
 > genChord _ _ [] = c 0 0 [Volume 0]
-> genChord key prevChrd ((chord, chordType, dur):cps) =  chrdComp :+: genChord key chord cps
+> genChord key prevChrd ((chord, chordType, dur):cps) =  chrdComp :+: genChord key nextChord cps
 > 				where
-> 					chrdComp = foldr1 (:=:) [Note (pitch pi) dur [Volume 50] | pi <- bestMatch key fullChord]
-> 					fullChord = makeChord key chord chordType
+> 				chrdComp = foldr1 (:=:) [Note (pitch pi) dur [Volume 50] | pi <- nextChord]
+> 				nextChord = bestChord prevChrd fullChord
+> 				fullChord = makeChord key chord chordType
 >
 > makeChord :: Key -> Chord -> ChordType -> Chord
 > makeChord key chord cType = map ((+) (head chord)) (map ((!!) modPattern) cType)
@@ -117,8 +118,8 @@
 >			modPattern = map (modround (head chord)) scPattern
 >	 		scPattern = scalePattern key chord cType
 >
-> bestMatch :: Key -> Chord -> Chord
-> bestMatch key chord = map limitPitch chord
+> bestChord :: Chord -> Chord -> Chord
+> bestChord prevChrd chord = map limitPitch chord
 >
 > -- Move the pitch in the desired range of E4-G5
 > limitPitch :: AbsPitch -> AbsPitch
