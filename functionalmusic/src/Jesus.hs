@@ -1,4 +1,4 @@
--- Jesus Love me. Music score: http://www.makingmusicfun.net/pdf/sheet_music/jesus-loves-me.pdf
+-- Jesus Loves me. Music score: http://www.makingmusicfun.net/pdf/sheet_music/jesus-loves-me.pdf
 
 module Twinkle where
 import Haskore
@@ -16,7 +16,7 @@ m1 = lmap (mkNote qn) [g oct, e oct, e oct, d oct, e oct, g oct]
             :+: mkNote hn (g oct)
 m2 = lmap (mkNote qn) [a oct, a oct, c (oct+1), a oct, a oct, g oct]
             :+: mkNote hn (g oct)
-            :+: lmap (mkNote qn) [g oct, e oct, e oct, d oct] 
+            :+: lmap (mkNote qn) [g oct, e oct, e oct, d oct]
 m3 = lmap (mkNote qn) [e oct, g oct]
             :+: mkNote hn (g oct)
             :+: lmap (mkNote qn) [a oct, a oct, g oct, c oct, e oct, d oct]
@@ -36,4 +36,4 @@ m6 = lmap (mkNote qn) [g oct, c oct, e oct, d oct]
 
 jesusMelody = m1 :+: m2 :+: m3 :+: m4 :+: m5 :+: m6
 
-jesus = Instr "piano" (Tempo 2.2 (Phrase [Dyn SF]  jesusMelody :=: autoComp cMajor jesusProgression boogieBass)) 
+jesus = Instr "piano" (Tempo 2.2 (Phrase [Dyn SF]  jesusMelody :=: autoComp cMajor jesusProgression basicBass))

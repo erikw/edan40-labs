@@ -42,7 +42,7 @@ More specifically we were asked to, given a musical score for a well know song `
 >{-> import Control.Exception hiding (assert)-}
 
 \section{Types \& general functions}
-To make the code more readable we define some types that we will use. 
+To make the code more readable we define some types that we will use.
 
 The basic elements are notes. Typically these are depicted as the notes on a piano segment:
 
@@ -118,6 +118,10 @@ Here in patternFromIndex the actual work is performed. We go from a given index 
 > 				| harQual == major = fst (scaleTable !! index)
 > 				| otherwise = snd (scaleTable !! index)
 
+All indices are numbered from C as the root. But some times, e.g. when we use a chord, another root is used for the indexes. Then the numbers must wrap around so that we still can reach the notes that comes before the current note (or you can see this as a way to access the next octave).
+
+> wrapOctave :: Int -> Int -> Int
+> wrapOctave i chrd = mod (i+chrd) 12
 
 \section{Bass}
 To be able to generate the bass we need some helper functions and types. First there are different types of bass lines that fits with different songs. So we let music compose choose one of these three common styles: basic, calypso, boogie. A bass style has a list of indexes to use from the current scale pattern and a duration for each of these selected notes. In more complex bass styles one could imagine that each note having a possibly different duration but for all our three styles it's possible to give the same durations to each.
@@ -127,26 +131,24 @@ To be able to generate the bass we need some helper functions and types. First t
 > basicBass = ([0,4], hn)
 > calypsoBass = ([-1, -1, 0, 2, -1, -1, 0, 2], en)
 > boogieBass = ([0, 4, 5, 4, 0, 4, 5, 4], en)
->
 
->
-> modround :: Int -> Int -> Int
-> modround i chrd = mod (i+chrd) 12
->
+For each chord in the chord progession, 1) we want to get the associated pattern 2) determine how many of the notes from the pattern to use 3) pick these many notes from the bass style 4) use these picked notes to pick from the scale pattern.
+
 > genBassChord :: Key ->  BassStyle -> (Chord, HamonicQuality, Dur) -> Chord
 > genBassChord key (style,_) (chord, harQual, crtio) = map (pickNote modPattern) redStyle
 >	 			where
 >	 			pattern = scalePattern key chord harQual
->				modPattern = map (modround (head chord)) pattern
+>				modPattern = map (wrapOctave (head chord)) pattern
 >	 			notesToPlay = (round $ (rtof crtio) * (float (length style)))
->	 			redStyle = take  notesToPlay style
+>	 			redStyle = take notesToPlay style
 >				oct =  snd (pitch $ head chord)
->				pickNote pttr e
->					| e == -1 = e
->					| otherwise = oct * 12 + (pttr !! e)
->
->
->
+>				pickNote pttr bassPttrIndex
+>					| bassPttrIndex == -1 = bassPttrIndex
+>					| otherwise = oct * 12 + (pttr !! bassPttrIndex)
+
+
+Now that we can generate a chord we just have to transform its elements to music and play them in in sequence.
+
 > genBassChordNote :: Key ->  BassStyle -> (Chord, HamonicQuality, Dur) -> Music
 > genBassChordNote key style@(s, dur) bassChord =  foldr1 (:+:) [mkNote pi | pi <- chord]
 > 					where
@@ -155,31 +157,48 @@ To be able to generate the bass we need some helper functions and types. First t
 > 						| pi == -1 = Rest (dur)
 > 						| otherwise = Note (pitch pi) (dur) [Volume 50]
 >
->
+
+Finally we can write the function that generates the whole bass line given a bass style, a key and a chord progresstion. It simply plays in sequence the results from applying genBassChordNote to each note in the chord progression.
+
 > autoBass :: BassStyle -> Key -> ChordProgression -> Music
 > autoBass _ _ [] = c 0 0 [Volume 0]
 > autoBass style key cprog = foldr1 (:+:) (map (genBassChordNote key style) cprog)
 >
 
-=============Voicing===============
+\section{Voicing}
 
-> autoChord :: Key -> ChordProgression -> Music
-> autoChord key cp = genChord key [] cp
->
-> genChord :: Key -> Chord -> ChordProgression -> Music
-> genChord _ _ [] = c 0 0 [Volume 0]
-> genChord key prevChrd ((chord, harQual, dur):cps) =  chrdComp :+: genChord key nextChord cps
-> 				where
-> 				chrdComp = foldr1 (:=:) [Note (pitch pi) dur [Volume 50] | pi <- nextChord]
-> 				nextChord = bestChord prevChrd fullChord
-> 				fullChord = makeChord key chord harQual
->
+To make the music richer than just having the bass we add a generated voicing to the song. The chord voicing is built on triads chords i.e. chords with three elements. These triads are generated from the chord progression. There are many ways of choosing what triad chord to play. In the instructions we are given some heuristics on how to generated a good voicing. The first one is to keep the chords in the range (E,4)-(G,5). So we wrote a function that takes a pitch and moves it into the desired range. This is possible since notes in different octaves are ``equivalent'' but sounds different.
+
+> limitPitch :: AbsPitch -> AbsPitch
+> limitPitch pi
+> 	| pi < (pitchClass E + 4 * 12) = limitPitch (pi + 12)
+> 	| pi > (pitchClass G + 5 * 12) = limitPitch (pi - 12)
+> 	| otherwise = pi
+
+
+Previously in the bass generation, when we used a chord we only used the root of it i.e. the first element. Now we need the whole chord sequence. Given a key, chord root and a harmonic quality we can generate the full chord. I.e. the chord that is an argument has length 1 and the one returned has length 3. This function is similar to the previous genBassChord in that it gets a scale pattern from the chord.  The indices in the harmonic qulity are used to pick elements in the scale pattern. Some octave modulation and value preservation has to be done to be able to search for indexes and in the end keep the original octave (the map (+ chrod) preserves the original octave).
+
 > makeChord :: Key -> Chord -> HamonicQuality -> Chord
 > makeChord key chord harQual = map ((+) (head chord)) (map ((!!) modPattern) harQual)
 > 			where
->			modPattern = map (modround (head chord)) scPattern
+>			modPattern = map (wrapOctave (head chord)) scPattern
 >	 		scPattern = scalePattern key chord harQual
->
+
+So from a given chord (full sequence now) we want to be able to find a good chord to play. In the instructions it says that we are free to change the order of the elements in a triad. We want to find one that has the smallest distance from the previously played chord. To cope with this we simply generate all possible inversions of a given triad.
+
+> -- A list of all chord inversions from a given chord. Assuming a chord is a triad
+> chordInversions :: Chord -> [Chord]
+> chordInversions orig@(c1:c2:c3') =  [orig, [c1,c3,c2], [c2,c1,c3], [c2,c3,c1], [c3,c1,c2], [c3,c2,c1]]
+> 					where c3 = head c3' -- TODO ugly
+
+The semitonal distances between two chords is just the absolute sum of the positional differences in pitches.
+
+> semiDistance :: Chord -> Chord -> Int
+> semiDistance a b = sum $ map abs (zipWith (-) a b)
+
+Now we can write a function that given a chord find the best inversion to play. This function starts with generating all chord inversions, applies the semiDistance function to all of them and find the smallest one. Then the smallest one is picked and limited to the desired range.
+
+
 > bestChord :: Chord -> Chord -> Chord
 > bestChord prevChrd chord =  limInversions !! (fromJust $ elemIndex minVal invDists)
 > 				where
@@ -189,31 +208,34 @@ To be able to generate the bass we need some helper functions and types. First t
 > 				limInversions = map (map limitPitch) inversions
 >
 >
-> -- A list of all chord inversions from a given chord. Assuming a chord is a triad
-> chordInversions :: Chord -> [Chord]
-> chordInversions orig@(c1:c2:c3') =  [orig, [c1,c3,c2], [c2,c1,c3], [c2,c3,c1], [c3,c1,c2], [c3,c2,c1]]
-> 					where c3 = head c3' -- TODO ugly
->
-> semiDistance :: Chord -> Chord -> Int
-> semiDistance a b = sum $ map abs (zipWith (-) a b)
->
-> semiDistTest = semiDistance [5, 1, 7] [4, 6, 5]
-> semiDistCheck = semiDistTest == 8
->
-> -- Move the pitch in the desired range of E4-G5
-> limitPitch :: AbsPitch -> AbsPitch
-> limitPitch pi 
-> 	| pi < (pitchClass E + 4 * 12) = limitPitch (pi + 12)
-> 	| pi > (pitchClass G + 5 * 12) = limitPitch (pi - 12)
-> 	| otherwise = pi
->
->
 
-========Finally=========
+This helper function takes a chord and a duration and generate music by playing the notes in parallel.
+
+> chrdComp :: Chord -> Dur -> Music
+> chrdComp chrd dur = foldr1 (:=:) [Note (pitch pi) dur [Volume 50] | pi <- chrd]
+
+The main function for generating the voicing is the genChord function. It processes each chord in the chord progression one at a time. The chords are made to music one by one (by recursion) and it is made sure that all members of a chord are played simultaneously. Before this we need to find good voicing triads which make the song sound better. This is generated by considering the previous chord. Also we have to generate the full chord sequence(which was was not needed in the base generation).
+
+> genChord :: Key -> Chord -> ChordProgression -> Music
+> genChord _ _ [] = c 0 0 [Volume 0]
+> genChord _ [] ((chord, harQual, dur):cps) =  chrdComp chord dur
+> genChord key prevChrd ((chord, harQual, dur):cps) =  (chrdComp nextChord dur):+: genChord key nextChord cps
+> 				where
+> 				nextChord = bestChord prevChrd fullChord
+> 				fullChord = makeChord key chord harQual
+
+
+This function simply starts the generation of the voicing gets music in return. Since there was no previously played note, the previous note is set to the empty list.
+
+> autoChord :: Key -> ChordProgression -> Music
+> autoChord key cp = genChord key [] cp
+
+\section{Accompaniment}
+
+The full accompaniment can now easily be generated by playing the bass and voicing simultaneously.
 
 > autoComp :: Key -> ChordProgression -> BassStyle -> Music
 > autoComp key cprog bstyle = autoBass bstyle key cprog :=: autoChord key cprog
 
 
 \end{document}
-
