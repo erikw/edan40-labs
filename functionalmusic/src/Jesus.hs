@@ -36,4 +36,4 @@ m6 = lmap (mkNote qn) [g oct, c oct, e oct, d oct]
 
 jesusMelody = m1 :+: m2 :+: m3 :+: m4 :+: m5 :+: m6
 
-jesus = Instr "piano" (Tempo 2.2 (Phrase [Dyn SF]  jesusMelody :=: autoComp cMajor jesusProgression basicBass))
+jesus = Instr "piano" (Tempo 2.5 (Phrase [Dyn SF]  jesusMelody :=: autoComp cMajor jesusProgression basicBass))

@@ -21,4 +21,4 @@ m2 = part :+: part
  
 twinkleMelody = m1 :+: m2 :+: m1
 
-twinkle = Instr "piano" (Tempo 2.2 (Phrase [Dyn SF]  twinkleMelody :=: autoComp cMajor twinkleProgression basicBass)) 
+twinkle = Instr "piano" (Tempo 2.4 (Phrase [Dyn SF]  twinkleMelody :=: autoComp cMajor twinkleProgression basicBass)) 
