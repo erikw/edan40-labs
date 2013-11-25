@@ -22,5 +22,5 @@ m2 = part :+: part
 twinkleMelody = m1 :+: m2 :+: m1
 
 -- TODO experiment with temp and instruments (differnet fro bass and vocals)
-{-twinkle = Instr "piano" (Tempo 2.2 (Phrase [Dyn SF]  twinkleMelody :=: autoComp cMajor twinkleProgression basicBass)) -}
-twinkle = Instr "piano" (Tempo 2.2 (Phrase [Dyn SF]  twinkleMelody :=: autoComp cMajor twinkleProgression calypsoBass)) 
+twinkle = Instr "piano" (Tempo 2.2 (Phrase [Dyn SF]  twinkleMelody :=: autoComp cMajor twinkleProgression basicBass)) 
+{-twinkle = Instr "piano" (Tempo 2.2 (Phrase [Dyn SF]  twinkleMelody :=: autoComp cMajor twinkleProgression calypsoBass)) -}
