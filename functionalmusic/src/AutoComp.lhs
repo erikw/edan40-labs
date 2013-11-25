@@ -7,6 +7,7 @@
 > import Data.Ratio
 > import Data.List(elemIndex)
 > import Data.Maybe(fromJust)
+> import Debug.Trace
 >
 > import Haskore hiding(Key)
 > import Control.Exception hiding (assert)
@@ -119,7 +120,24 @@
 >	 		scPattern = scalePattern key chord cType
 >
 > bestChord :: Chord -> Chord -> Chord
-> bestChord prevChrd chord = map limitPitch chord
+> bestChord prevChrd chord =  limInversions !! (fromJust $ elemIndex minVal invDists)
+> 				where
+> 				minVal = minimum invDists
+> 				invDists = map (semiDistance prevChrd) inversions
+> 				inversions = chordInversions chord
+> 				limInversions = map (map limitPitch) inversions
+>
+>
+> -- A list of all chord inversions from a given chord. Assuming a chord is a triad
+> chordInversions :: Chord -> [Chord]
+> chordInversions orig@(c1:c2:c3') =  [orig, [c1,c3,c2], [c2,c1,c3], [c2,c3,c1], [c3,c1,c2], [c3,c2,c1]]
+> 					where c3 = head c3' -- TODO ugly
+>
+> semiDistance :: Chord -> Chord -> Int
+> semiDistance a b = sum $ map abs (zipWith (-) a b)
+>
+> semiDistTest = semiDistance [5, 1, 7] [4, 6, 5]
+> semiDistCheck = semiDistTest == 8
 >
 > -- Move the pitch in the desired range of E4-G5
 > limitPitch :: AbsPitch -> AbsPitch
@@ -128,6 +146,12 @@
 > 	| pi > (pitchClass G + 5 * 12) = limitPitch (pi - 12)
 > 	| otherwise = pi
 >
+>
+
+========Finally=========
+
+> autoComp :: Key -> ChordProgression -> BassStyle -> Music
+> autoComp key cprog bstyle = autoBass bstyle key cprog :=: autoChord key cprog
 
 
 \end{verbatim} }
