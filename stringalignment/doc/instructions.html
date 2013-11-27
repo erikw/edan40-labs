@@ -1,0 +1,588 @@
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 
+	This website is powered by TYPO3 - inspiring people to share!
+	TYPO3 is a free open source Content Management Framework initially created by Kasper Skaarhoj and licensed under GNU/GPL.
+	TYPO3 is copyright 1998-2013 of Kasper Skaarhoj. Extensions are copyright of their respective owners.
+	Information and contribution at http://typo3.org/
+-->
+
+<base href="http://cs.lth.se/" />
+
+
+<meta name="generator" content="TYPO3 4.7 CMS" />
+
+<link rel="stylesheet" type="text/css" href="typo3temp/stylesheet_c89dd1c966.css?1375282766" media="all" />
+
+
+
+<script src="fileadmin/template/scripts/jquery.js?1335947431" type="text/javascript"></script>
+<script src="fileadmin/template/scripts/jquery-ui.min.js?1335947163" type="text/javascript"></script>
+<script src="fileadmin/template/scripts/jquery.lightbox-0.5.js?1335956927" type="text/javascript"></script>
+
+
+<meta http-equiv="Content-Language" content="sv" />
+<meta name="robots" content="index, follow" />
+<link rel="stylesheet" type="text/css" href="/fileadmin/template/css/basic.css" />
+<link rel="stylesheet" type="text/css" href="/fileadmin/template/css/text_normal.css" />
+<link rel="stylesheet" type="text/css" href="/fileadmin/template/css/contrast_normal.css" />
+<script type="text/javascript" src="/fileadmin/template/common.js"></script>
+<link rel="stylesheet" type="text/css" href="/fileadmin/template/css/lth_01.css" />
+<title>Computer Science: EDAN40: String Alignment</title><meta name="keywords" content="" /><meta name="description" content="" />
+</head>
+<body>
+
+<div align="center">
+<div class="templateMain" style="width: 754px; background-color: #ffffff;" align="left"><!--###templateMain### begin -->
+<div style="width: 754px; height: 29px;" class="headToolbar"><!--###headToolbar### begin -->
+<div class="headToolbarMenu" style="float: left; margin-left: 5px; width: 410px;"><!--###headToolbarMenu### begin -->
+<div style="float:left;"><a href="/english/">Home</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</div><div style="float:left;"><a href="/english/style_preferences">Style</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</div><div style="float:left;"><a href="/english/site_map">Sitemap</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</div><div style="float:left;background-image:url(/graphics/se.png);background-repeat:no-repeat;padding-left:20px;background-position:center left;"><a href="">Svenska</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</div><div><a href="http://www.lu.se/english/">Lund University</a></div>
+<!--###headToolbarMenu### end --></div>
+<div class="headToolbarSearch"><!--###headToolbarSearch### begin -->
+<form action="/english/search/" method="post" name="searchform"><input name="s" value="1" type="hidden" /><input name="so" value="1" type="hidden" /><input type="hidden" name="i" value="en" /><input type="hidden" name="category" value="cs" /><input name="q" type="text" value="" class="field" />&nbsp;<input name="x" type="submit" value="Search" class="button" /></form>
+<!--###headToolbarSearch### end --></div>
+<!--###headToolbar### end --></div>
+<div class="leftColBg"><!--###leftColBg### begin -->
+<div style="width: 573px; float: right;" class="rightTd"><!--###rightTd### begin -->
+<div class="columnTop"><!--###columnTop### begin -->
+<div class="image" align="left"><!--###image### begin --><img src="http://fileadmin.cs.lth.se/cs/Education/EDAN40/Bilder/Grundplatta_EDAN40.jpg" border="0" height="113" alt="top image" /><!--###image### end --></div>
+<!--###columnTop### end --></div>
+<div class="mainMenuSelected"><!--###mainMenuSelected### begin -->
+<div style="float: left; " class="menuItem "><a href="english/about/"  >About</a></div><div style="float: left; " class="menuItem "><a href="english/education/"  >Education</a></div><div style="float: left; " class="menuItem "><a href="english/research/"  >Research</a></div><div style="float: left; " class="menuItem "><a href="english/contact/"  >Contact</a></div><div style="float: left; " class="menuItem "><a href="english/events/"  >Events</a></div><div style="float: left; " class="menuItem menu_no_border"><a href="english/internal/"  >Internal</a></div>
+<!--###mainMenuSelected### end --></div>
+<!--###rightTd### end --></div>
+<div style="float: left; width: 178px;" class="leftTd"><!--###leftTd### begin -->
+<div class="menuLogo" id="LOGO"><a href="http://www.lth.se/english"><img src="/fileadmin/template/images/lth_eng.gif" alt="Lund university - faculty of engineering" border="0" height="113" width="178" /></a></div>
+<div class="menuSubHead"><!--###menuSubHead### begin -->
+<div class="menuDepartmentLink"><a href="/english/">Computer Science</a></div>
+<!--###menuSubHead### end --></div>
+<div class="menuSubPlate"><a href="http://cs.lth.se/EDAN40">EDAN40</a></div>
+<div class="menu"><!--###menu### begin -->
+<ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/course-syllabus/"  >Course Syllabus</a></li></ul><ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/important-dates/"  >Important Dates</a></li></ul><ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/lecture-material/"  >Lecture Material</a></li></ul><ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/class-material/"  >Class Material</a></li></ul><ul class="mainnav"><li class="isunder"><a href="english/course/edan40-functional-programming/programming-assignments/"  >Programming Assignments</a><ul class="subnav"><li class="nosub"><a href="english/course/edan40-functional-programming/programming-assignments/chatterbots/"  >Chatterbots</a></li><li class="nosub"><a href="english/course/edan40-functional-programming/programming-assignments/functional-music/"  >Functional Music</a></li><li class="isunderactive"><a href="english/course/edan40-functional-programming/programming-assignments/string-alignment/"  >String Alignment</a></li><li class="nosub"><a href="english/course/edan40-functional-programming/programming-assignments/functional-parsing/"  >Functional Parsing</a></li></ul></li></ul><ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/examination/"  >Examination</a></li></ul><ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/programming-environment/"  >Programming Environment</a></li></ul><ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/teachers/"  >Teachers</a></li></ul><ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/literature-and-links/"  >Literature and Links</a></li></ul>
+<!--###menu### end --></div>
+<div class="placeF"><!--###placeF### begin -->
+<div class="quickLaunch" style="padding-top: 10px;"><!--###quickLaunch### begin -->
+
+<!--###quickLaunch### end --></div>
+
+<!--###placeF### end --></div>
+<!--###leftTd### end --></div>
+<div style="float: right; width: 573px;" class="rightTd"><!--###rightTd### begin -->
+<div class="columnRight"><!--###columnRight### begin -->
+
+<div style="float: left; width: 573px; padding-bottom: 30px;" class="columnLeft">
+	<div class="placeA"><!--###placeA### begin -->
+		<div class="contentMain"><!--###contentMain### begin -->
+			<a name="content"></a>
+			<h1>EDAN40: String Alignment<br /><br /></h1>
+			<a title="html" name="c102813"></a><h1>Summary</h1>
+<p>In this assignment you will use Haskell to solve a fundamental theoretical
+problem from combinatorics. On the way you will learn to use memoization. The assignment 
+  is to be completed individually.
+</p>
+<br>
+
+<h1>Introduction</h1>
+<p>
+A major part of molecular biology deals with analyzing and comparing the
+genetic material (DNA, RNA, proteins, chromosomes, genes, etc.)
+of different organisms.
+Enormous amounts of information have to be collected, stored, and
+processed; fortunately, many kinds of biomolecular data share a common
+underlying sequential structure.
+For instance, the primary structure of a protein is a one-dimensional chain
+of amino acid residues, and hence expressible as a string over a finite
+alphabet.
+In the same way, the linear sequence of bases in a DNA molecule can
+be represented by a string over the alphabet {A,C,G,T}, and RNA
+by a string over the alphabet {A,C,G,U}.
+Efficient string algorithms have therefore turned out to be of great
+importance for solving combinatorial problems related to modern molecular
+biology.</p>
+
+<p>
+One example of such a problem is <i>the string alignment problem</i>.
+An <i>alignment</i> of two strings is a way of placing one string above the
+other to illustrate how parts of the strings are related.
+Given two strings s and t, an alignment is obtained by inserting spaces into
+s and t so that the characters of the resulting strings can be put
+in one-to-one correspondence to each other, as in the following example where
+the symbol '-' is used to represent an inserted space:</p>
+<blockquote>
+<p><font face="Courier" size="-2">
+  H A S K E L L<br>
+  P A S C A - L</font></p>
+</blockquote>
+<p>Spaces may also be added to the beginning and the end of the strings, but a
+space in one string is never allowed to be aligned with a space
+in the other (for obvious reasons). Thus, another valid way to align the two
+strings is:</p>
+<blockquote>
+<p><font face="Courier" size="-2">H - A S K E L L<br>
+  - P A S C - A L</font></p>
+</blockquote>
+
+<p>
+The <i>length</i> of an alignment is the number of columns it contains,
+so the first alignment has length 7
+while the second alignment has length 8.
+Looking more closely, we see that in the first alignment,
+there are 3 matches, 3 mismatches, and 1 space;
+in the second, there are 3 matches, 2 mismatches, and 3 spaces.
+Which of the two alignments is "better"?
+</p>
+
+<p>
+There is no definite answer, as this depends on the application, i.e.,
+on how we choose to penalize mismatches and inserted spaces.
+This means that in some cases, the first alignment would be considered better
+than the second, while the second alignment would be preferred
+in other cases.
+The parameters that specify the optimization criteria will be referred to
+as scoreMatch, scoreMismatch, and scoreSpace.
+</p>
+
+<p>
+One application of the string alignment technique is
+to identify an unknown virus.
+By aligning its RNA sequence to various known RNA sequences stored in a
+database (one at a time), and rejecting those with a similarity score lower
+than a certain threshold, one can select a small set of candidate
+RNA sequences to be subjected to further, more detailed comparisons.
+Another use of string alignments is
+when different laboratories that are working on obtaining the DNA sequence
+of a certain gene want to compare their results, an alignment will show where
+their results differ.
+Finally, alignments between DNA sequences from a set of similar species
+provide an indication of how the species are related to each other.
+This information can then be used to construct an evolutionary tree which
+describes how they have evolved from an assumed common ancestor.
+There are many other uses of string alignments in molecular biology
+as well as in other fields such as computer science, coding theory,
+dendrochronology, stratigraphic analysis, forensics, and speech recognition.
+</p>
+
+<p>
+The difficulty involved in aligning strings is that the total number of
+possible alignments is exponential in the lengths of the input strings.
+A brute-force approach (generate all possible alignments, evaluate each one,
+and return all those with the highest score) is therefore useless for strings
+of sizes that occur in practice.
+For example, there are more than 10^764 possible alignments for two
+strings of length 1000.
+But it is possible to use a bottom-up method that takes advantage
+of the structure of the problem, and
+in this assignment, you will write a Haskell program that solves the string
+alignment problem more efficiently.<br>
+</p>
+<br>
+
+<h1>Problem specification</h1>
+<p>
+Formally, the string alignment problem is defined as follows.</p>
+<blockquote>
+  <p><b>Input</b>:  Two strings s and t, and values for scoreMatch, scoreMismatch, and
+  scoreSpace.<br>
+  <b>Output</b>: All optimal alignments between s and t.</p>
+</blockquote>
+
+<p>Or in terms of a Haskell type signature:</p>
+<blockquote>
+<p><font face="Courier" size="-2">optimalAlignments :: Int -&gt; Int -&gt; Int -&gt; String -&gt; String -&gt;
+[AlignmentType]</font></p>
+</blockquote>
+
+<p>
+In order to be able to compare different alignments, a scoring scheme is
+required.
+For this reason, we define the <i>score</i> of an alignment as the sum of its <i>column
+scores</i>, where a column score is calculated from the characters in that
+column.
+If one of the characters is a space, the column score is equal to scoreSpace;
+otherwise, it is equal to either scoreMatch or scoreMismatch
+depending on whether the characters are identical or not.
+
+<br>
+In the example above, if we let</p>
+<blockquote>
+<p><font face="Courier" size="-2">
+  scoreMatch = 1<br>
+  scoreMismatch = -1<br>
+  scoreSpace = -2</font></p>
+</blockquote>
+<p>
+then the score of the first alignment is -2 and the score of the second
+alignment is -5.
+</p>
+
+<p>
+An <i>optimal alignment</i> is an alignment with the highest possible score.
+The score of such an alignment is called the <i>similarity score</i> of the
+two strings. Note that there can be more than one optimal alignment.
+</p>
+
+<br>
+
+<h1>
+Preparation</h1>
+<p>Read <a 
+  href="http://cs.lth.se/english/course/edan40_functional_programming/programming_assignments/mcsp/">here</a> 
+  about a related problem, the <i>maximal common
+subsequence problem</i>. This problem is also decribed in section 19.6 of the Thomson's 
+  textbook, 2nd ed. (and in section 20.6 in 3rd ed.)
+</p>
+<br>
+
+<h1>
+Assignment</h1>
+<br>
+
+<h2>1. General understanding of the problem</h2>
+<p>
+An application of the string alignment problem to computer science is the fact
+that the maximal common subsequence problem (MCS) is a special
+case of the string alignment problem.<br>
+Assuming we had access to an algorithm for the string alignment problem,
+how could we use it to solve MCS for strings?</p><br>
+<h2>2. Haskell programming</h2>
+<p>
+   a.) Write a Haskell function
+</p>
+<blockquote>
+<p><font face="Courier" size="-2">
+        similarityScore :: String -> String -> Int<br>
+        similarityScore string1 string2</font></p>
+</blockquote>
+<p>
+that returns the score of the optimal alignment of the two strings
+<font face="Courier" size="-2">string1</font>
+and <font face="Courier" size="-2">string2</font>.
+If you need to, consult the Hint section below.
+</p>
+<br>
+
+<p>
+   b.) Explain what the following Haskell function does.
+</p>
+<blockquote>
+<p><font face="Courier" size="-2">
+        attachHeads :: a -> a -> [([a],[a])] -> [([a],[a])] <br>
+  attachHeads h1 h2 aList = [(h1:xs,h2:ys) | (xs,ys) <- aList]
+</font></p>
+</blockquote>
+<br>
+
+<p>
+   c.) Write a Haskell function
+</p>
+<blockquote>
+<p><font face="Courier" size="-2">
+        maximaBy :: Ord b => (a -> b) -> [a] -> [a] <br>
+        maximaBy valueFcn xs</font></p>
+</blockquote>
+<p>
+which generalizes the <font face="Courier" size="-2">maximum</font> function in
+two respects:
+<ol>
+  <li>The "value" of an element is defined by a function supplied as
+      a parameter.</li>
+  <li>Instead of just one element, the result is a list of <i>all</i> maximum
+      elements.</li>
+</ol></p>
+<p>For example,<code> maximaBy length ["cs", "efd", "lth", "it"]</code> should return
+<code>["efd", "lth"]</code>.
+</p>
+<br>
+
+<p>
+   d.)
+Let</p>
+<blockquote>
+<p><font face="Courier" size="-2">type AlignmentType = (String,String)</font>.
+</p>
+</blockquote>
+<p>Write a Haskell function
+</p>
+<blockquote>
+<p><font face="Courier" size="-2">
+        optAlignments :: String -> String -> [AlignmentType]<br>
+        optAlignments string1 string2</font></p>
+</blockquote>
+<p>
+which returns a list of all optimal alignments between
+<font face="Courier" size="-2">string1</font>
+and <font face="Courier" size="-2">string2</font>.
+(Hint: Follow the same pattern as you did in part a.,
+and make use of the functions defined in parts b. and c.)
+</p>
+<p>
+<br>
+
+   e.) Write a Haskell function</p>
+<blockquote>
+<p><font face="Courier" size="-2">
+        outputOptAlignments string1 string2</font></p>
+</blockquote>
+<p>
+that prints all optimal alignments between <font face="Courier" size="-2">string1</font>
+and <font face="Courier" size="-2">string2</font> to the screen
+in a neat and easy-to-read fashion.
+</p>
+<br>
+
+<h3>Example:</h3>
+<p>
+   Let</p>
+<blockquote>
+<p>
+   <font face="Courier" size="-2">scoreMatch = 0<br>
+     scoreMismatch = -1<br>
+     scoreSpace = -1<br>
+     string1 = "writers"<br>
+     string2 = "vintner"</font></p>
+</blockquote>
+<p>
+   Then</p>
+<blockquote>
+<p><font face="Courier" size="-2">Main> similarityScore string1 string2</font></p>
+</blockquote>
+<p>should return the value</p>
+<blockquote>
+<p>
+     <font face="Courier" size="-2">
+     -5</font></p>
+</blockquote>
+<p>and</p>
+<blockquote>
+<p>
+     <font face="Courier" size="-2">
+     Main> optAlignments string1 string2</font></p>
+</blockquote>
+<p>
+     should return</p>
+<blockquote>
+<p><font face="Courier" size="-2">
+[(&quot;writ-ers&quot;,&quot;vintner-&quot;),
+(&quot;wri-t-ers&quot;,&quot;-vintner-&quot;),
+(&quot;wri-t-ers&quot;,&quot;v-intner-&quot;)]
+</font>
+  </p>
+</blockquote>
+<p>
+   Finally,</p>
+<blockquote>
+<p><font face="Courier" size="-2">Main> outputOptAlignments string1 string2</font></p>
+</blockquote>
+<p>should yield something like</p>
+<blockquote>
+  <p><font face="Courier" size="-2">
+     There are 3 optimal alignments:<br>
+<br>
+     w r i t - e r s <br>
+     v i n t n e r - <br>
+<br>
+     w r i - t - e r s <br>
+     - v i n t n e r - <br>
+<br>
+     w r i - t - e r s <br>
+     v - i n t n e r - </font>
+  </p>
+</blockquote>
+<br>
+
+<h2>
+3. Program optimization
+</h2>
+<p>
+The technique for speeding up MCS by storing intermediate results in a table
+can be applied to the string alignment problem as well.
+To avoid unnecessary recomputations, we could store the similarity scores
+between the various suffixes of <font face="Courier" size="-2">string1</font>
+and <font face="Courier" size="-2">string2</font> in a table, i.e., a list
+of lists.
+</p>
+<p>
+Modify the definition of
+<a href="http://cs.lth.se/english/course/edan40_functional_programming/programming_assignments/mcsp/"><font face="Courier" 
+size="-1">mcsLength</font></a>
+to make the <font face="Courier" size="-1">similarityScore</font>
+and <font face="Courier" size="-1">optAlignments</font> functions in exercise 2
+more efficient. You will need to redefine the auxiliary functions used by
+<font face="Courier" size="-1">mcsLength</font> and the table's initial values
+(that is, the values in the first "row" and the first "column").
+As in <font face="Courier" size="-1">mcsLength</font>, the elements in the
+<font face="Courier" size="-1">similarityScore</font> table should be of the
+type Int. For <font face="Courier" size="-1">optAlignments</font>,
+the elements should be of the type <code>(Int, [AlignmentType])</code> where the second element contain
+ the optimal alignments themselves and the first element is the score for these alignments, i.e. the corresponding
+ similarity score.</p>
+
+<p>If you have succeeded in your optimization it should take at most a few seconds to correctly evaluate:</p>
+
+<p><font face="Courier" size="-2">
+optAlignments "aferociousmonadatemyhamster" "functionalprogrammingrules" 
+</font></p>
+
+<p>Before you start coding either of the table based implementations you should convince 
+  yourself that you can
+ correctly construct a small table of the correct type by hand.</p>
+
+
+<p>Note: <font face="Courier" size="-1">mcsLength</font>
+stores optimal solutions for all <i>prefixes</i> of the input strings.
+If you decide to use this left-to-right ordering in your solution,
+you will probably need an <font face="Courier" size="-1">attachTails</font>
+function when constructing the optimal alignments.</p>
+
+<p><b>Suggestion:</b> As an intermediate step you might want to write a version of 
+<font face="Courier" size="-1">optAlignments</font> where you only store the optimal alignments in the table
+ and (inefficiently) do the necessary scoring calculation directly in the local auxilliary function. The elements in the
+ table in this version will thus be of the type <code>[AlignmentType]</code>. Your final optimized solution will
+ then be a combination of this version and the solution for <font face="Courier" size="-1">similarityScore</font>.
+</p>
+
+
+<br>
+
+<!--
+<h2>
+4. Generalizations (optional)
+</h2>
+<p>The string alignment problem can be generalized in two different ways.</p>
+<ul>
+  <li><i>The local string alignment problem</i> captures the task of
+  detecting regions of similarity embedded in large regions of dissimilary;
+  because of the way that evolution works, two molecular sequences might
+  be very different on the global level, yet exhibit internal sections of high
+  similarity.
+  The goal is to find the best alignment possible between s' and t', where s'
+  and t' range over all substrings of s and t, respectively.
+  <br>
+  </li>
+  <br>
+  <li> In <i>the multiple string alignment problem</i>, the input is a set of
+  strings to be aligned simultaneously in the best way possible. It arises when
+  trying to discover conserved subpatterns in a set of sequences that are
+  already known to be biologically related, finding a representative for a
+  family of proteins (useful for speeding up database searches), or deducing
+  evolutionary history (multiple alignments give more information than just
+  pairwise alignments).
+  </li>
+</ul>
+  <p>Modify your solution to cover these more general problems.<br>
+<br>
+</p>
+<p>&nbsp;</p>
+-->
+
+<h1>
+Submission requirements</h1>
+<ol>
+<li><b>What to submit:</b><br>
+An e-mail containing your name and your answers to exercises 1, 2a-e, and 3.<br>
+To pass, your programs must, as always, work and be highly readable.</li>
+<li><b>How to submit:</b><br>
+E-mail to <a href="mailto:fp@cs.lth.se">fp@cs.lth.se</a> with a subject line of
+            "<code>Assignment 3 by <em>username</em></code>", where <tt><em>username</em></tt>
+            is your login.</li>
+<li><b>Deadline:</b><br>December 4th, 2013</li>
+    </ol>
+
+<br>
+
+<h1>Hint</h1>
+<p>Observe that every alignment can start in exactly one of three ways:</p>
+<ol>
+  <li>Two non-space characters</li>
+  <li>Non-space above, space below</li>
+  <li>Space above, non-space below</li>
+</ol>
+<p>
+In an optimal alignment of two strings
+<font face="Courier" size="-1">(x:xs)</font> and
+<font face="Courier" size="-1">(y:ys)</font> beginning as in (1),
+<font face="Courier" size="-1">xs</font> has to be optimally
+aligned with <font face="Courier" size="-1">ys</font>.
+(If not, then a better-than-optimal solution could be obtained by combining the optimal
+alignment between <font face="Courier" size="-1">xs</font> and
+<font face="Courier" size="-1">ys</font> with the first column. Contradiction!)
+Therefore, the corresponding score is equal to the similarity score of
+<font face="Courier" size="-1">xs</font>
+and <font face="Courier" size="-1">ys</font> plus the first column's score,
+which is either scoreMatch or scoreMismatch.<br>
+<br>
+If an optimal solution starts like in (2),
+<font face="Courier" size="-1">xs</font>
+is optimally aligned with <font face="Courier" size="-1">(y:ys)</font> and
+<font face="Courier" size="-1">x</font>
+is paired with a '<font face="Courier" size="-1">-</font>',
+and analogously for optimal alignments of type (3).<br>
+<br>
+Thus, the following recursive relation holds for the similarity score of
+two non-empty strings:
+</p>
+<blockquote>
+  <p><font face="Courier" size="-2">sim((x:xs),(y:ys)) = max
+  {sim(xs,ys) + score(x,y),<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  sim(xs,(y:ys)) + score(x,'-'),<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  sim((x:xs),ys) + score('-',y)}</font></p>
+</blockquote>
+  <p>where</p>
+<blockquote>
+<p><font face="Courier" size="-2">
+  score(x,'-') = score('-',y) = scoreSpace<br>
+  score(x,y) = scoreMatch, if x == y<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  scoreMismatch, if x /= y<br>
+  </font></p>
+</blockquote>
+
+			<ul class="linkIconList" style="padding: 10px 0 0 20px; margin: 0"><li id="print">
+			<div id="LINK_PRINTABLE"><a href="&#35;" onclick="printWindow(location.href,'2');return false;">Print version</a></div></li></ul>
+			<div class="customFoot"><!--###customFoot### begin -->
+				<div class="line"><!--###line### begin --><!-- --><!--###line### end --></div>
+				<p>
+					Page Manager:&nbsp;Jacek Malec<br />Webmaster:&nbsp;<a href="mailto:webmaster@lth.se">webmaster@lth.se</a><br />Last updated:&nbsp;2013-11-27
+				</p>
+			<!--###customFoot### end --></div>
+		<!--###contentMain### end --></div>
+	<!--###placeA### end --></div>
+</div>
+
+
+<div style="clear: both;"><!-- --></div>
+<!--###columnRight### end --></div>
+<!--###rightTd### end --></div>
+<div style="clear: both; width: 754px;" class="bottomTd"><!--###bottomTd### begin -->
+<div class="mainFootDiv"><!--###mainFootDiv### begin -->
+<div class="contentFoot"><!--###contentFoot### begin -->
+<a href="typo3/index.php?redirect_url=../index.php?id=44733" >Dept. of Computer Science, LTH, P.O. Box 118, 221 00 Lund, Sweden. Phone: +46 46 2220000</a>
+<!--###contentFoot### end --></div>
+<div class="clear"><!--###clear### begin --><!-- --><!--###clear### end --></div>
+<!--###mainFootDiv### end --></div>
+<!--###bottomTd### end --></div>
+<div style="clear: both;" class="startBottomShadow"><!--###startBottomShadow### begin --><!-- --><!--###startBottomShadow### end --></div>
+<!--###leftColBg### end --></div>
+<!--###templateMain### end --></div>
+</div>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-12582595-1");
+pageTracker._trackPageview();
+</script>
+
+
+
+
+</body>
+</html>

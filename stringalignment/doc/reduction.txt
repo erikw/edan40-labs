@@ -1,0 +1,5 @@
+# MCS recuced to String Alignment.
+let scoreMatch = 1, scoreMismatch = 0, scoreSpace = 0
+run stringAlignment
+
+Now string alignment will give back the string alignments optimized for matching common subsequences by only giving score for matches.
