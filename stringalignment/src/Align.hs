@@ -11,8 +11,8 @@ score _ matchSc misSc x y
         | otherwise = misSc
 
 similarityScore :: (Char -> Char -> Int) -> String -> String -> Int
-{-similarityScore scoreFcn [] y = sum $ map (scoreFcn '-') y-}
-similarityScore scoreFcn [] (y:ys) = scoreFcn '-' y  + similarityScore scoreFcn [] ys -- TODO prettier?
+{-similarityScore scoreFcn [] (y:ys) = scoreFcn '-' y  + similarityScore scoreFcn [] ys -- TODO prettier?-}
+similarityScore scoreFcn [] y = sum $ map (scoreFcn '-') y
 similarityScore scoreFcn x [] = sum $ map (scoreFcn '-') x
 similarityScore scoreFcn (x:xs) (y:ys) = maximum [match, spaceUp, spaceDown]
                                 where
@@ -71,3 +71,31 @@ alignTest1 = optAlignments alignScoreFcn1 "writers" "vintner"
 alignExpected1 = [("writ-ers","vintner-"), ("wri-t-ers","v-intner-"), ("wri-t-ers","-vintner-")] 
 alignCheck1 = alignTest1 == alignExpected1
 
+{----3----}
+similarityScoreMemz :: (Char -> Char -> Int) -> String -> String -> Int
+similarityScoreMemz scoreFcn xs ys = simScore (length xs) (length ys)
+    where
+    simScore i j = scoreTable !! i !! j
+    scoreTable = [[ scoreEntry i j | j <- [0..]] | i <- [0..]]
+       
+    scoreEntry :: Int -> Int -> Int
+    scoreEntry 0 0 = 0
+    scoreEntry 0 j = scoreFcn '-' (y j) + simScore 0 (j-1)
+    scoreEntry i 0 = scoreFcn (x i) '-' + simScore (i-1) 0
+    scoreEntry i j = maximum [match, spaceX, spaceY]
+        where
+        match = scoreFcn (x i) (y j) + simScore (i-1) (j-1)
+        spaceX = scoreFcn '-' (y j) + simScore i (j-1)
+        spaceY = scoreFcn (x i) '-' + simScore (i-1) j
+    x i =  xs !! (length xs - i)
+    y j =  ys !! (length ys - j)
+
+
+{----Tests----}
+simMemzTest1 = similarityScoreMemz score1 "writers" "vintner"
+simMemzCheck1 = simMemzTest1 == (-5)
+
+simMemzTest2 = similarityScoreMemz score2 "HASKELL" "PASCAL"
+simMemzCheck2 = simMemzTest2 == (-2)
+
+{-optAlignmentsMemz "aferociousmonadatemyhamster" "functionalprogrammingrules" -}
