@@ -188,8 +188,10 @@ So from a given chord (full sequence now) we want to be able to find a good chor
 
 > -- A list of all chord inversions from a given chord. Assuming a chord is a triad
 > chordInversions :: Chord -> [Chord]
-> chordInversions orig@(c1:c2:c3') =  [orig, [c1,c3,c2], [c2,c1,c3], [c2,c3,c1], [c3,c1,c2], [c3,c2,c1]]
-> 					where c3 = head c3' -- TODO ugly
+>{-> chordInversions orig@(c1:c2:c3') =  [orig, [c1,c3,c2], [c2,c1,c3], [c2,c3,c1], [c3,c1,c2], [c3,c2,c1]]-}
+>{-> 					where c3 = head c3'-}
+> chordInversions orig@(c1:c2:c3') =  [orig, [c1+12,c2,c3],[c1,c2+12,c3],[c1,c2,c3+12],[c1+12,c2+12,c3],[c1+12,c2,c3+12],[c1,c2+12,c3+12],[c1+12,c2+12,c3+12]]
+> 					where c3 = head c3'
 
 The semitonal distances between two chords is just the absolute sum of the positional differences in pitches.
 
@@ -203,7 +205,7 @@ Now we can write a function that given a chord find the best inversion to play. 
 > bestChord prevChrd chord =  limInversions !! (fromJust $ elemIndex minVal invDists)
 > 				where
 > 				minVal = minimum invDists
-> 				invDists = map (semiDistance prevChrd) inversions
+> 				invDists = map (semiDistance prevChrd) limInversions
 > 				inversions = chordInversions chord
 > 				limInversions = map (map limitPitch) inversions
 >
@@ -218,8 +220,9 @@ The main function for generating the voicing is the genChord function. It proces
 
 > genChord :: Key -> Chord -> ChordProgression -> Music
 > genChord _ _ [] = c 0 0 [Volume 0]
-> genChord _ [] ((chord, harQual, dur):cps) =  chrdComp chord dur
-> genChord key prevChrd ((chord, harQual, dur):cps) =  (chrdComp nextChord dur):+: genChord key nextChord cps
+> genChord key [] ((chord, harQual, dur):cps) =  chrdComp fullChord dur :+: genChord key fullChord cps
+> 				where fullChord = makeChord key chord harQual
+> genChord key prevChrd ((chord, harQual, dur):cps) =  (chrdComp nextChord dur) :+: genChord key nextChord cps
 > 				where
 > 				nextChord = bestChord prevChrd fullChord
 > 				fullChord = makeChord key chord harQual
