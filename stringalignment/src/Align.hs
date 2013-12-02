@@ -71,12 +71,17 @@ alignTest1 = optAlignments alignScoreFcn1 "writers" "vintner"
 alignExpected1 = [("writ-ers","vintner-"), ("wri-t-ers","v-intner-"), ("wri-t-ers","-vintner-")] 
 alignCheck1 = alignTest1 == alignExpected1
 
+{----2 e)----}
+outputOptAlignments -> String -> String -> IO ()
+outputOptAlignments string1 string2 = return () -- TODO write this.
+
+
 {----3----}
 similarityScoreMemz :: (Char -> Char -> Int) -> String -> String -> Int
 similarityScoreMemz scoreFcn xs ys = simScore (length xs) (length ys)
     where
     simScore i j = scoreTable !! i !! j
-    scoreTable = [[ scoreEntry i j | j <- [0..]] | i <- [0..]]
+    scoreTable = [[scoreEntry i j | j <- [0..]] | i <- [0..]]
        
     scoreEntry :: Int -> Int -> Int
     scoreEntry 0 0 = 0
@@ -91,6 +96,30 @@ similarityScoreMemz scoreFcn xs ys = simScore (length xs) (length ys)
     y j =  ys !! (length ys - j)
 
 
+
+-- TODO don't use scoreFcn, but only the char scorer. store intermediate results.
+optAlignmentsMemz :: (AlignmentType -> Int) -> String -> String -> [AlignmentType]
+optAlignmentsMemz scoreFcn xs ys = (snd . optAlign) (length xs) (length ys)
+    where
+    optAlign i j = alignTable !! i !! j
+    alignTable = [[alignEntry i j | j <- [0..]] | i <- [0..]]
+       
+    alignEntry :: Int -> Int -> (Int, [AlignmentType])
+    alignEntry 0 0 = (0, [("", "")])
+    alignEntry 0 j = (newScore, newAligns)
+            where
+            (score, strings) = optAlign 0 (j-1)
+            newAligns = attachHeads '-' (y j) strings
+            newScore = scoreFcn (head newAligns)
+    alignEntry i 0 = (newScore, newAligns)
+            where
+            (score, strings) = optAlign (i-1) 0
+            newAligns = attachHeads (x i) '-' strings
+            newScore = scoreFcn (head newAligns)
+    alignEntry i j = 
+    x i =  xs !! (length xs - i)
+    y j =  ys !! (length ys - j)
+
 {----Tests----}
 simMemzTest1 = similarityScoreMemz score1 "writers" "vintner"
 simMemzCheck1 = simMemzTest1 == (-5)
@@ -98,4 +127,4 @@ simMemzCheck1 = simMemzTest1 == (-5)
 simMemzTest2 = similarityScoreMemz score2 "HASKELL" "PASCAL"
 simMemzCheck2 = simMemzTest2 == (-2)
 
-{-optAlignmentsMemz "aferociousmonadatemyhamster" "functionalprogrammingrules" -}
+optAlignmentsMemz alignScoreFcn1 "aferociousmonadatemyhamster" "functionalprogrammingrules" 
