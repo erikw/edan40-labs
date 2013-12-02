@@ -68,6 +68,6 @@ optAlignments scoreFcn (x:xs) (y:ys) = maximaBy scoreFcn $ concat [match, spaceU
 {----Tests----}
 alignScoreFcn1 = alignScore score1
 alignTest1 = optAlignments alignScoreFcn1 "writers" "vintner"
-alignExpected1 = [("writ-ers","vintner-"), ("wri-t-ers","-vintner-"), ("wri-t-ers","v-intner-")] 
+alignExpected1 = [("writ-ers","vintner-"), ("wri-t-ers","v-intner-"), ("wri-t-ers","-vintner-")] 
 alignCheck1 = alignTest1 == alignExpected1
 
