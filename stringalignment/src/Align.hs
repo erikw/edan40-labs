@@ -1,5 +1,6 @@
 module Align where
-import Data.List(elemIndices)
+import Data.List(elemIndices, intersperse)
+import Data.Char(chr)
 
 {----2 a)----}
 {----Similarity scoring----}
@@ -10,8 +11,9 @@ score _ matchSc misSc x y
         | x == y = matchSc
         | otherwise = misSc
 
-similarityScore :: (Char -> Char -> Int) -> String -> String -> Int
-{-similarityScore scoreFcn [] (y:ys) = scoreFcn '-' y  + similarityScore scoreFcn [] ys -- TODO prettier?-}
+type Scorer = (Char -> Char -> Int)
+
+similarityScore :: Scorer -> String -> String -> Int
 similarityScore scoreFcn [] y = sum $ map (scoreFcn '-') y
 similarityScore scoreFcn x [] = sum $ map (scoreFcn '-') x
 similarityScore scoreFcn (x:xs) (y:ys) = maximum [match, spaceUp, spaceDown]
@@ -49,7 +51,7 @@ maximaCheck = maximaTest == ["efd", "lth"]
 {----2 d)----}
 type AlignmentType = (String,String)
 
-alignScore :: (Char -> Char -> Int) -> AlignmentType -> Int
+alignScore :: Scorer -> AlignmentType -> Int
 alignScore scorer (str1, str2) = sum $ zipWith scorer str1 str2
 
 optAlignments :: (AlignmentType -> Int) -> String -> String -> [AlignmentType]
@@ -72,12 +74,24 @@ alignExpected1 = [("writ-ers","vintner-"), ("wri-t-ers","v-intner-"), ("wri-t-er
 alignCheck1 = alignTest1 == alignExpected1
 
 {----2 e)----}
-{-outputOptAlignments :: String -> String -> IO ()-}
-{-outputOptAlignments string1 string2 = return () -- TODO write this.-}
+outputOptAlignments :: (AlignmentType -> Int) -> String -> String -> IO ()
+outputOptAlignments scoreFcn str1 str2 = do
+                                    putStrLn ("There are " ++  (show $ length aligns) ++ " optimal alignments:")
+                                    putStrLn $ concat (map alignFmt aligns)
+                                    where
+                                    aligns = optAlignments scoreFcn str1 str2
+                                    alignFmt :: AlignmentType -> String
+                                    alignFmt (a0, a1) = "\n\n" ++ spaceIt a0 ++ "\n" ++ spaceIt a1 ++ "\n"
+                                        where
+                                        spaceIt :: String -> String
+                                        spaceIt = intersperse ' '
 
+
+{----Tests----}
+outputTest1 = outputOptAlignments alignScoreFcn1 "writers" "vintner"
 
 {----3----}
-similarityScoreMemz :: (Char -> Char -> Int) -> String -> String -> Int
+similarityScoreMemz :: Scorer -> String -> String -> Int
 similarityScoreMemz scoreFcn xs ys = simScore (length xs) (length ys)
     where
     simScore i j = scoreTable !! i !! j
@@ -96,8 +110,7 @@ similarityScoreMemz scoreFcn xs ys = simScore (length xs) (length ys)
     y j =  ys !! (length ys - j)
 
 
-
-optAlignmentsMemz :: (Char -> Char -> Int) -> String -> String -> [AlignmentType]
+optAlignmentsMemz :: Scorer -> String -> String -> [AlignmentType]
 optAlignmentsMemz scoreFcn xs ys = snd $ optAlign (length xs) (length ys)
     where
     optAlign i j = alignTable !! i !! j
@@ -107,34 +120,34 @@ optAlignmentsMemz scoreFcn xs ys = snd $ optAlign (length xs) (length ys)
     alignEntry 0 0 = (0, [("", "")])
     alignEntry 0 j = (newScore, newAligns)
             where
-            (score, strings) = optAlign 0 (j-1)
-            newAligns = attachHeads '-' (y j) strings
-            newScore = scoreFcn '-' (y j) + score
+            (memScore, memAligns) = optAlign 0 (j-1)
+            newAligns = attachHeads '-' (y j) memAligns
+            newScore = scoreFcn '-' (y j) + memScore
     alignEntry i 0 = (newScore, newAligns)
             where
-            (score, strings) = optAlign (i-1) 0
-            newAligns = attachHeads (x i) '-' strings
-            newScore = scoreFcn (x i) '-' + score
-    alignEntry i j =  (maxScore, maxStrings)
+            (memScore, memAligns) = optAlign (i-1) 0
+            newAligns = attachHeads (x i) '-' memAligns
+            newScore = scoreFcn (x i) '-' + memScore
+    alignEntry i j =  (maxScore, maxmemAligns)
             where
             maxElems = maximaBy fst [match, spaceX, spaceY]
             maxScore = (fst . head) maxElems
-            maxStrings = concat $ map snd maxElems
+            maxmemAligns = concat $ map snd maxElems
             match = (newScore, newAligns)
                 where
-                (score, strings) = optAlign (i-1) (j-1)
-                newAligns = attachHeads (x i) (y j) strings
-                newScore = scoreFcn (x i) (y j) + score
+                (memScore, memAligns) = optAlign (i-1) (j-1)
+                newAligns = attachHeads (x i) (y j) memAligns
+                newScore = scoreFcn (x i) (y j) + memScore
             spaceX = (newScore, newAligns)
                 where
-                (score, strings) = optAlign i (j-1)
-                newAligns = attachHeads '-' (y j) strings
-                newScore = scoreFcn '-' (y j) + score
+                (memScore, memAligns) = optAlign i (j-1)
+                newAligns = attachHeads '-' (y j) memAligns
+                newScore = scoreFcn '-' (y j) + memScore
             spaceY = (newScore, newAligns)
                 where
-                (score, strings) = optAlign (i-1) j
-                newAligns = attachHeads (x i) '-' strings
-                newScore = scoreFcn (x i) '-' + score
+                (memScore, memAligns) = optAlign (i-1) j
+                newAligns = attachHeads (x i) '-' memAligns
+                newScore = scoreFcn (x i) '-' + memScore
     x i =  xs !! (length xs - i)
     y j =  ys !! (length ys - j)
 
