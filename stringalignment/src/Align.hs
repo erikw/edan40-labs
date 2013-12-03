@@ -32,7 +32,7 @@ simCheck2 = simTest2 == (-2)
 {----2 b)----}
 -- Prepend h1 and h2 respectivly to each tuple's two lists.
 attachHeads :: a -> a -> [([a],[a])] -> [([a],[a])]
-attachHeads h1 h2 aList = [(h1:xs,h2:ys) | (xs,ys) <- aList] 
+attachHeads h1 h2 aList = [(h1:xs,h2:ys) | (xs,ys) <- aList]
 
 {----2 c)----}
 maximaBy :: Ord b => (a -> b) -> [a] -> [a]
@@ -40,7 +40,7 @@ maximaBy valueFcn xs = map ((!!) xs) maxIndices
                     where
                     xsValues = map valueFcn xs
                     maxVal = maximum xsValues
-                    maxIndices = elemIndices maxVal xsValues 
+                    maxIndices = elemIndices maxVal xsValues
 
 {----Tests----}
 maximaTest = maximaBy length ["cs", "efd", "lth", "it"]
@@ -68,7 +68,7 @@ optAlignments scoreFcn (x:xs) (y:ys) = maximaBy scoreFcn $ concat [match, spaceU
 {----Tests----}
 alignScoreFcn1 = alignScore score1
 alignTest1 = optAlignments alignScoreFcn1 "writers" "vintner"
-alignExpected1 = [("writ-ers","vintner-"), ("wri-t-ers","v-intner-"), ("wri-t-ers","-vintner-")] 
+alignExpected1 = [("writ-ers","vintner-"), ("wri-t-ers","v-intner-"), ("wri-t-ers","-vintner-")]
 alignCheck1 = alignTest1 == alignExpected1
 
 {----2 e)----}
@@ -82,7 +82,7 @@ similarityScoreMemz scoreFcn xs ys = simScore (length xs) (length ys)
     where
     simScore i j = scoreTable !! i !! j
     scoreTable = [[scoreEntry i j | j <- [0..]] | i <- [0..]]
-       
+
     scoreEntry :: Int -> Int -> Int
     scoreEntry 0 0 = 0
     scoreEntry 0 j = scoreFcn '-' (y j) + simScore 0 (j-1)
@@ -97,27 +97,26 @@ similarityScoreMemz scoreFcn xs ys = simScore (length xs) (length ys)
 
 
 
--- TODO don't use scoreFcn, but only the char scorer. store intermediate results.
-optAlignmentsMemz :: (AlignmentType -> Int) -> String -> String -> [AlignmentType]
+optAlignmentsMemz :: (Char -> Char -> Int) -> String -> String -> [AlignmentType]
 optAlignmentsMemz scoreFcn xs ys = snd $ optAlign (length xs) (length ys)
     where
     optAlign i j = alignTable !! i !! j
     alignTable = [[alignEntry i j | j <- [0..]] | i <- [0..]]
-       
+
     alignEntry :: Int -> Int -> (Int, [AlignmentType])
     alignEntry 0 0 = (0, [("", "")])
     alignEntry 0 j = (newScore, newAligns)
             where
             (score, strings) = optAlign 0 (j-1)
             newAligns = attachHeads '-' (y j) strings
-            newScore = scoreFcn (head newAligns) -- TODO + stored value plus current
+            newScore = scoreFcn '-' (y j) + score
     alignEntry i 0 = (newScore, newAligns)
             where
             (score, strings) = optAlign (i-1) 0
             newAligns = attachHeads (x i) '-' strings
-            newScore = scoreFcn (head newAligns)
+            newScore = scoreFcn (x i) '-' + score
     alignEntry i j =  (maxScore, maxStrings)
-            where 
+            where
             maxElems = maximaBy fst [match, spaceX, spaceY]
             maxScore = (fst . head) maxElems
             maxStrings = concat $ map snd maxElems
@@ -125,17 +124,17 @@ optAlignmentsMemz scoreFcn xs ys = snd $ optAlign (length xs) (length ys)
                 where
                 (score, strings) = optAlign (i-1) (j-1)
                 newAligns = attachHeads (x i) (y j) strings
-                newScore = scoreFcn (head newAligns)
+                newScore = scoreFcn (x i) (y j) + score
             spaceX = (newScore, newAligns)
                 where
                 (score, strings) = optAlign i (j-1)
                 newAligns = attachHeads '-' (y j) strings
-                newScore = scoreFcn (head newAligns)
+                newScore = scoreFcn '-' (y j) + score
             spaceY = (newScore, newAligns)
                 where
                 (score, strings) = optAlign (i-1) j
                 newAligns = attachHeads (x i) '-' strings
-                newScore = scoreFcn (head newAligns)
+                newScore = scoreFcn (x i) '-' + score
     x i =  xs !! (length xs - i)
     y j =  ys !! (length ys - j)
 
@@ -147,8 +146,8 @@ simMemzTest2 = similarityScoreMemz score2 "HASKELL" "PASCAL"
 simMemzCheck2 = simMemzTest2 == (-2)
 
 
-optAlignTest1 = optAlignmentsMemz alignScoreFcn1 "writers" "vintner"
-optAlignExpected1 = [("writ-ers","vintner-"), ("wri-t-ers","v-intner-"), ("wri-t-ers","-vintner-")] 
-optAlignCheck1 = optAlignTest1 == optAlignExpected1
+alignMemzTest1 = optAlignmentsMemz score1 "writers" "vintner"
+alignMemzExpected1 = [("writ-ers","vintner-"), ("wri-t-ers","v-intner-"), ("wri-t-ers","-vintner-")]
+alignMemzCheck1 = alignMemzTest1 == alignMemzExpected1
 
-optAlignTest2 = optAlignmentsMemz alignScoreFcn1 "aferociousmonadatemyhamster" "functionalprogrammingrules" 
+alignMemzTest2 = optAlignmentsMemz score1 "aferociousmonadatemyhamster" "functionalprogrammingrules"
