@@ -1,0 +1,358 @@
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 
+	This website is powered by TYPO3 - inspiring people to share!
+	TYPO3 is a free open source Content Management Framework initially created by Kasper Skaarhoj and licensed under GNU/GPL.
+	TYPO3 is copyright 1998-2013 of Kasper Skaarhoj. Extensions are copyright of their respective owners.
+	Information and contribution at http://typo3.org/
+-->
+
+<base href="http://cs.lth.se/" />
+
+
+<meta name="generator" content="TYPO3 4.7 CMS" />
+
+<link rel="stylesheet" type="text/css" href="typo3temp/stylesheet_c89dd1c966.css?1375282766" media="all" />
+
+
+
+<script src="fileadmin/template/scripts/jquery.js?1335947431" type="text/javascript"></script>
+<script src="fileadmin/template/scripts/jquery-ui.min.js?1335947163" type="text/javascript"></script>
+<script src="fileadmin/template/scripts/jquery.lightbox-0.5.js?1335956927" type="text/javascript"></script>
+
+
+<meta http-equiv="Content-Language" content="sv" />
+<meta name="robots" content="index, follow" />
+<link rel="stylesheet" type="text/css" href="/fileadmin/template/css/basic.css" />
+<link rel="stylesheet" type="text/css" href="/fileadmin/template/css/text_normal.css" />
+<link rel="stylesheet" type="text/css" href="/fileadmin/template/css/contrast_normal.css" />
+<script type="text/javascript" src="/fileadmin/template/common.js"></script>
+<link rel="stylesheet" type="text/css" href="/fileadmin/template/css/lth_01.css" />
+<title>Computer Science: EDAN40: Functional Parsing</title><meta name="keywords" content="" /><meta name="description" content="" />
+</head>
+<body>
+
+<div align="center">
+<div class="templateMain" style="width: 754px; background-color: #ffffff;" align="left"><!--###templateMain### begin -->
+<div style="width: 754px; height: 29px;" class="headToolbar"><!--###headToolbar### begin -->
+<div class="headToolbarMenu" style="float: left; margin-left: 5px; width: 410px;"><!--###headToolbarMenu### begin -->
+<div style="float:left;"><a href="/english/">Home</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</div><div style="float:left;"><a href="/english/style_preferences">Style</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</div><div style="float:left;"><a href="/english/site_map">Sitemap</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</div><div style="float:left;background-image:url(/graphics/se.png);background-repeat:no-repeat;padding-left:20px;background-position:center left;"><a href="">Svenska</a>&nbsp;&nbsp;&#124;&nbsp;&nbsp;</div><div><a href="http://www.lu.se/english/">Lund University</a></div>
+<!--###headToolbarMenu### end --></div>
+<div class="headToolbarSearch"><!--###headToolbarSearch### begin -->
+<form action="/english/search/" method="post" name="searchform"><input name="s" value="1" type="hidden" /><input name="so" value="1" type="hidden" /><input type="hidden" name="i" value="en" /><input type="hidden" name="category" value="cs" /><input name="q" type="text" value="" class="field" />&nbsp;<input name="x" type="submit" value="Search" class="button" /></form>
+<!--###headToolbarSearch### end --></div>
+<!--###headToolbar### end --></div>
+<div class="leftColBg"><!--###leftColBg### begin -->
+<div style="width: 573px; float: right;" class="rightTd"><!--###rightTd### begin -->
+<div class="columnTop"><!--###columnTop### begin -->
+<div class="image" align="left"><!--###image### begin --><img src="http://fileadmin.cs.lth.se/cs/Education/EDAN40/Bilder/Grundplatta_EDAN40.jpg" border="0" height="113" alt="top image" /><!--###image### end --></div>
+<!--###columnTop### end --></div>
+<div class="mainMenuSelected"><!--###mainMenuSelected### begin -->
+<div style="float: left; " class="menuItem "><a href="english/about/"  >About</a></div><div style="float: left; " class="menuItem "><a href="english/education/"  >Education</a></div><div style="float: left; " class="menuItem "><a href="english/research/"  >Research</a></div><div style="float: left; " class="menuItem "><a href="english/contact/"  >Contact</a></div><div style="float: left; " class="menuItem "><a href="english/events/"  >Events</a></div><div style="float: left; " class="menuItem menu_no_border"><a href="english/internal/"  >Internal</a></div>
+<!--###mainMenuSelected### end --></div>
+<!--###rightTd### end --></div>
+<div style="float: left; width: 178px;" class="leftTd"><!--###leftTd### begin -->
+<div class="menuLogo" id="LOGO"><a href="http://www.lth.se/english"><img src="/fileadmin/template/images/lth_eng.gif" alt="Lund university - faculty of engineering" border="0" height="113" width="178" /></a></div>
+<div class="menuSubHead"><!--###menuSubHead### begin -->
+<div class="menuDepartmentLink"><a href="/english/">Computer Science</a></div>
+<!--###menuSubHead### end --></div>
+<div class="menuSubPlate"><a href="http://cs.lth.se/EDAN40">EDAN40</a></div>
+<div class="menu"><!--###menu### begin -->
+<ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/course-syllabus/"  >Course Syllabus</a></li></ul><ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/important-dates/"  >Important Dates</a></li></ul><ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/lecture-material/"  >Lecture Material</a></li></ul><ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/class-material/"  >Class Material</a></li></ul><ul class="mainnav"><li class="isunder"><a href="english/course/edan40-functional-programming/programming-assignments/"  >Programming Assignments</a><ul class="subnav"><li class="nosub"><a href="english/course/edan40-functional-programming/programming-assignments/chatterbots/"  >Chatterbots</a></li><li class="nosub"><a href="english/course/edan40-functional-programming/programming-assignments/functional-music/"  >Functional Music</a></li><li class="nosub"><a href="english/course/edan40-functional-programming/programming-assignments/string-alignment/"  >String Alignment</a></li><li class="isunderactive"><a href="english/course/edan40-functional-programming/programming-assignments/functional-parsing/"  >Functional Parsing</a></li></ul></li></ul><ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/examination/"  >Examination</a></li></ul><ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/programming-environment/"  >Programming Environment</a></li></ul><ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/teachers/"  >Teachers</a></li></ul><ul class="mainnav"><li class="none"><a href="english/course/edan40-functional-programming/literature-and-links/"  >Literature and Links</a></li></ul>
+<!--###menu### end --></div>
+<div class="placeF"><!--###placeF### begin -->
+<div class="quickLaunch" style="padding-top: 10px;"><!--###quickLaunch### begin -->
+
+<!--###quickLaunch### end --></div>
+
+<!--###placeF### end --></div>
+<!--###leftTd### end --></div>
+<div style="float: right; width: 573px;" class="rightTd"><!--###rightTd### begin -->
+<div class="columnRight"><!--###columnRight### begin -->
+
+<div style="float: left; width: 573px; padding-bottom: 30px;" class="columnLeft">
+	<div class="placeA"><!--###placeA### begin -->
+		<div class="contentMain"><!--###contentMain### begin -->
+			<a name="content"></a>
+			<h1>EDAN40: Functional Parsing<br /><br /></h1>
+			<a title="html" name="c102815"></a><h1>Summary</h1>
+<p>In this assignment you will create a parser and an interpreter for a
+small imperative language. The main goal is to get acquainted with a monadic
+way of solving a classical problem in computer science.</p>
+
+<h1>Introduction</h1>
+<p>The following program is written in the programming language to be
+parsed and interpreted in this assignment.</p>
+
+<pre>
+   read k;
+   read n;
+   m := 1;
+   while n-m do
+     begin
+       if m - m/k*k then
+         skip;
+       else
+         write m;
+       m := m + 1;
+     end
+</pre>
+
+<p>The language has just one data type, integer, and variables are not
+declared. In the <code>while</code> and <code>if</code> statements a positive
+expression value is interpreted as true while 0 and negative values
+mean false.</p>
+
+<p>
+The program above reads two integers, <code>k</code> and <code>n</code>, and writes all
+integers between <code>1</code> and <code>n</code> that are multiples of <code>k</code>.</p>
+
+<p>
+The grammar for the language is given by</p>
+
+<pre>
+   program ::= statements
+   statement ::= variable ':=' expr ';'
+           | 'skip' ';'
+           | 'begin' statements 'end'
+           | 'if' expr 'then' statement 'else' statement
+           | 'while' expr 'do' statement
+           | 'read' variable ';'
+           | 'write' expr ';'
+   statements ::= {statement}
+   variable ::= letter {letter}
+</pre>
+
+<p>An explanation of this grammar and a parser for an expression, <code>expr</code>, 
+  can be found in the document
+<a 
+  href="http://fileadmin.cs.lth.se/cs/Education/EDAN40/assignment4/parser.pdf">Parsing
+  with Haskell</a>, by Lennart Andersson.
+The intended semantics for the language should be obvious from the keywords for 
+  anybody familiar with Java language.</p>
+
+<h1>Program structure</h1>
+
+<p>You are given the stub of a solution:</p>
+<dl compact="compact">
+ <dt><tt>CoreParser.hs</tt></dt>
+  <dd><p> defines the <code>Parser</code> type and implements
+  the three elementary parsers, <code>char</code>, <code>return</code> and
+  <code>fail</code>, and the basic parser operators <code>#</code>, <code>!</code>,
+  <code>?</code>, <code>#&gt;</code>, and <code>&gt;-&gt;</code>, described in 
+    Lennart Andersson's description (and during the lecture).
+
+<p>
+  The class <code>Parse</code> with signatures for <code>parse</code>,
+  <code>toString</code>, and <code>fromString</code> with an implementation
+  for the last one is introduced.
+
+<p>
+  The representation of the Parser type is visible outside the module,
+  but this visibilty should not be exploited.</dd>
+ <dt><tt>Parser.hs</tt></dt>
+  <dd><p> contains a number of derived parsers and parser
+  operators.</dd>
+ <dt><tt>Expr.hs</tt></dt>
+  <dd> <p>contains a data type for representing an arithmetic
+  expression, an expression parser, an expression evaluator, and a
+  function for converting the representation to a string.</dd>
+ <dt><tt>Dictionary.hs</tt></dt>
+  <dd><p> contains a data type for representing a dictionary.</dd>
+ <dt><tt>Statement.hs</tt></dt>
+  <dd><p> contains a data type for representing a statement,
+  a statement parser, a function to interpret a list of statements, and a
+  function for converting the representation to a string.</dd>
+ <dt><tt>Program.hs</tt></dt>
+  <dd><p> contains a data type for representing a program,
+  a program parser, a program interpreter, and a
+  function for converting the representation to a string.</dd>
+ <dt><tt>Test*.hs</tt></dt>
+  <dd><p> contains test data.</dd>
+</dl>
+
+<p>
+In a test using the  program in the introduction with the following definitions
+
+<pre>
+   src = "read k; read n; m:=1; ... "
+   p = Program.fromString src
+</pre>
+
+<p>the expression <code>Program.exec p [3,16]</code> should return <code>[3,6,9,12,15]</code>.
+
+<h1>Assignment and hints</h1>
+
+<p>
+
+<ol type="1">
+<li>  In <code>Parser.hs</code> implement the following functions. All the
+  implementations should use other parsers and parser operators. No
+  implementation may rely on the fact that the parsers return values
+  of type <code>Maybe(a, String)</code>. This means e.g. that the words
+  <code>Just</code> and  <code>Nothing</code> may not appear in the code.
+
+<dl compact="compact">
+ <dt><code>letter :: Parser Char.</code></dt>
+  <dd> <code>letter</code>  is a parser for a
+  letter as defined by the Prelude function <code>isAlpha</code>.</dd>
+ <dt><code>spaces :: Parser String.</code></dt>
+  <dd>  <code>spaces</code> accepts any
+  number of whitespace characters as defined by the Prelude function
+  <code>isSpace</code>.</dd>
+ <dt><code>chars :: Int -&#62; Parser String.</code></dt>
+  <dd> The parser
+  <code>chars n</code>  accepts <code>n</code> characters.</dd>
+ <dt><code>require :: String -&#62; Parser String.</code></dt>
+  <dd> The parser
+  <code>require w</code> accepts the same string input as <code>accept w</code> but
+  reports the missing string using  <code>err</code> in case of failure.</dd>
+ <dt><code>-# :: Parser a -&#62; Parser b -&#62; Parser b.</code></dt>
+  <dd> The parser
+  <code>m -# n</code> accepts the same input as  <code>m # n</code>, but returns
+  just the result from the <code>n</code> parser.
+  The function should be declared as a left associative  infix operator
+  with precedence 7. Example:
+
+<pre>
+   (accept "read" -# word) "read count;" -&#62; Just ("count", ";")
+</pre></dd>
+ <dt><code>#- :: Parser a -&#62; Parser b -&#62; Parser a.</code></dt>
+  <dd> The parser
+  <code>m #- n</code> accepts the same input as  <code>m # n</code>, but returns
+  the result  from the <code>m</code> parser.</dd>
+</dl></li>
+
+<li>
+Implement the function <code>value</code> in <code>Expr</code>. The expression
+<code>value e dictionary</code> should return the value of <code>e</code> if all the
+variables occur in <code>dictionary</code> and there is no division by
+zero. Otherwise an error should be reported using <code>error</code>.<p></li>
+
+<li>
+Implement the type and the functions in the <code>Statement</code>
+module. Some hints:
+<ol type="a">
+<li>The data type <code>T</code> should have seven constructors, one for
+  each kind of statement.
+<li> Define a parsing function for each kind of statement.  If the
+  parser has accepted the first reserved word in a statement, you should use  <code>require</code> rather
+  than <code>accept</code> to parse other
+  reserved words or symbols in order to get better error messages in
+  case of failure. An example:
+<pre>
+   assignment = word #- accept ":=" # Expr.parse 
+                     #- require ";" &#62;-&#62; buildAss
+   buildAss (v, e) = Assignment v e
+</pre></li>
+<li> Use these functions to define <code>parse</code>.
+<li> The function
+  <code>exec :: [T] -&gt; Dictionary.T String Integer -&gt; [Integer] -&gt; [Integer]</code>
+  takes a list of statements to be executed, a
+  dictionary containing variable/value pairs, and a list of integers
+  containing numbers that may be read by <code>read</code> statements and
+  the returned list contains the numbers produced by <code>write</code>
+  statements.
+<br>
+    The function <code>exec</code> is defined using pattern matching on the
+  first argument. If it is empty an empty integer list is returned.
+  The other patterns discriminate over the first statement in the
+  list. As an example the execution of a conditional statement may be
+  implemented by
+
+<pre>
+   exec (If cond thenStmts elseStmts: stmts) dict input =
+       if (Expr.value cond dict)&#62;0
+       then exec (thenStmts: stmts) dict input
+       else exec (elseStmts: stmts) dict input
+</pre>
+  For each kind of statement there will be a recursive invocation of
+  <code>exec</code>.
+  A write statement will add a value to the returned list, while an
+  assignment will make a recursive call with a new dictionary.<p></li>
+</ol></li>
+
+<li>In the <code>Program</code>
+module you should represent the program as a <code>Statement</code> list. Use the
+parse function from the <code>Statement</code> module to define the parse function
+in this module. Use the <code>exec</code> function in the <code>Statement</code> module to
+execute a program.
+
+<li>
+Implement <code>toString :: T -&gt; String</code> in <code>Statement</code> and
+<code>Program</code>. A newline character should be inserted after each
+statement and some keywords, but no indentation of lines is required. 
+  However, it will be appreciated. No spurious empty lines should appear in the 
+  output.<p></li>
+</ol>
+
+<p>
+
+<h1>Provided documents</h1>
+<p>There is a zip <a href="http://fileadmin.cs.lth.se/cs/Education/EDAN40/assignment4/ass4.zip">file</a>
+ containing  a partial implementation.</p>
+<p>
+<a href="http://fileadmin.cs.lth.se/cs/Education/EDAN40/assignment4/parser.pdf">Lennart
+  Andersson's "Parsing in Haskell"</a> describing building parsers using <code>Maybe</code>.</p>
+
+<h1>Submission requirements</h1>
+
+<p>This assignment is to be solved individually. You are to
+submit your solution to <a href="mailto:fp@cs.lth.se">fp@cs.lth.se</a>
+with a subject line of "<code>Assignment 4 by <em>username</em></code>",
+where <code><em>username</em></code> is your login,
+no later than 11th December 2013. The solution must contain a zip-file
+containing a directory with all modules. To pass, your program must
+work and consist of readable modules. Every value (or
+function) <em>exported</em> from a module must have an explicit
+type. You should also
+state how many hours you have used for this assignment.
+
+
+			<ul class="linkIconList" style="padding: 10px 0 0 20px; margin: 0"><li id="print">
+			<div id="LINK_PRINTABLE"><a href="&#35;" onclick="printWindow(location.href,'2');return false;">Print version</a></div></li></ul>
+			<div class="customFoot"><!--###customFoot### begin -->
+				<div class="line"><!--###line### begin --><!-- --><!--###line### end --></div>
+				<p>
+					Page Manager:&nbsp;Jacek Malec<br />Webmaster:&nbsp;<a href="mailto:webmaster@lth.se">webmaster@lth.se</a><br />Last updated:&nbsp;2013-12-04
+				</p>
+			<!--###customFoot### end --></div>
+		<!--###contentMain### end --></div>
+	<!--###placeA### end --></div>
+</div>
+
+
+<div style="clear: both;"><!-- --></div>
+<!--###columnRight### end --></div>
+<!--###rightTd### end --></div>
+<div style="clear: both; width: 754px;" class="bottomTd"><!--###bottomTd### begin -->
+<div class="mainFootDiv"><!--###mainFootDiv### begin -->
+<div class="contentFoot"><!--###contentFoot### begin -->
+<a href="typo3/index.php?redirect_url=../index.php?id=44735" >Dept. of Computer Science, LTH, P.O. Box 118, 221 00 Lund, Sweden. Phone: +46 46 2220000</a>
+<!--###contentFoot### end --></div>
+<div class="clear"><!--###clear### begin --><!-- --><!--###clear### end --></div>
+<!--###mainFootDiv### end --></div>
+<!--###bottomTd### end --></div>
+<div style="clear: both;" class="startBottomShadow"><!--###startBottomShadow### begin --><!-- --><!--###startBottomShadow### end --></div>
+<!--###leftColBg### end --></div>
+<!--###templateMain### end --></div>
+</div>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-12582595-1");
+pageTracker._trackPageview();
+</script>
+
+
+
+
+</body>
+</html>
