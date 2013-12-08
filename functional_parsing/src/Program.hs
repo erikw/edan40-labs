@@ -17,7 +17,6 @@ newtype T = Program [Statement.T]
 
 instance Parse T where
   parse = iter Statement.parse >-> Program
-  {-toString (Program stmts) = concat $ map toString stmts-}
   toString (Program stmts) = intercalate "\n" $ map toString stmts
              
 exec :: T -> [Integer] -> [Integer]
