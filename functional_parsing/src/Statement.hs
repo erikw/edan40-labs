@@ -3,6 +3,8 @@ import Prelude hiding (return, fail)
 import Parser hiding (T)
 import qualified Dictionary
 import qualified Expr
+import Data.List(intercalate, replicate)
+
 type T = Statement
 data Statement =
     Assignment String Expr.T
@@ -55,6 +57,18 @@ exec (Read var : stmts) dict (i:is) = exec stmts newDict is
                     where newDict = Dictionary.insert (var, i) dict
 exec (Write expr : stmts) dict input = (Expr.value expr dict) : exec stmts dict input
 
+indent :: Int -> String
+indent i = concat $ replicate i " "
+
+shw :: Int -> Statement -> String
+shw dent (Assignment var expr) = (indent dent) ++ var ++ " := " ++ (Expr.toString expr) ++ ";"
+shw dent Skip = (indent dent) ++ "skip;"
+shw dent (Begin stmts) = (indent dent) ++ "begin\n" ++ (intercalate "\n" $ map (shw (dent+3)) stmts) ++ "\nend\n"
+shw dent (If cond thenStmt elseStmts) = (indent dent) ++ "if " ++ (Expr.toString cond) ++ " then\n" ++ (shw (dent+3) thenStmt) ++ "\n" ++ (indent dent) ++ "else\n" ++ (shw (dent+3) elseStmts)
+shw dent (While cond stmt) = (indent dent) ++ "while " ++ (Expr.toString cond) ++ " do\n" ++ (shw (dent+3) stmt)
+shw dent (Read var) = (indent dent) ++ "read " ++ var ++ ";"
+shw dent (Write expr) = (indent dent) ++ "write " ++ (Expr.toString expr) ++ ";"
+
 instance Parse Statement where
   parse = assignment ! skip ! begin ! ifStmt ! while ! readStmt ! write
-  toString = error "Statement.toString not implemented" -- TODO how?
+  toString p = shw 0 p

@@ -3,6 +3,7 @@ import Parser hiding (T)
 import qualified Statement
 import qualified Dictionary
 import Prelude hiding (return, fail)
+import Data.List(intercalate)
 
 newtype T = Program [Statement.T]
 
@@ -16,7 +17,8 @@ newtype T = Program [Statement.T]
 
 instance Parse T where
   parse = iter Statement.parse >-> Program
-  toString = error "Program.toString not implemented"
+  {-toString (Program stmts) = concat $ map toString stmts-}
+  toString (Program stmts) = intercalate "\n" $ map toString stmts
              
 exec :: T -> [Integer] -> [Integer]
 exec (Program stmts) input = Statement.exec stmts Dictionary.empty input

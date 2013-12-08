@@ -83,7 +83,7 @@ value (Mul lhs rhs) dict = foldl1 (*) $ map (flip value dict) [lhs, rhs]
 value (Div lhs rhs) dict 
                 | rval == 0 = error "Division by 0."
                 | otherwise = lval `quot` rval
-            where [lval, rval] = map (flip value dict) [lhs, rhs]
+            where (lval:rval:_) = map (flip value dict) [lhs, rhs]
 
 instance Parse Expr where
     parse = expr
