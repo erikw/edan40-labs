@@ -35,16 +35,25 @@ buildRead = Read
 write = accept "write" -# Expr.parse #- require ";" >-> buildWrite
 buildWrite = Write
 
+
+
+
 exec :: [T] -> Dictionary.T String Integer -> [Integer] -> [Integer]
 exec [] _ _ = []
 exec (Assignment var expr : stmts) dict input = exec stmts newDict input
                 where newDict = Dictionary.insert (var, Expr.value expr dict) dict 
+exec (Skip : stmts) dict input = exec stmts dict input
+exec (Begin bstmts : stmts) dict input = exec (bstmts ++ stmts) dict input
 exec (If cond thenStmts elseStmts: stmts) dict input = 
     if (Expr.value cond dict)>0 
     then exec (thenStmts: stmts) dict input
     else exec (elseStmts: stmts) dict input
-
-{-exec s@(While cond stmt : stmts) dict input = if (Expr.value cond dict) > 0 then exec (stmt(stmt:stmt)) dict input-}
+exec s@(While cond stmt : stmts) dict input = if (Expr.value cond dict) > 0
+                                                then exec (stmt : s) dict input
+                                                else exec stmts dict input
+exec (Read var : stmts) dict (i:is) = exec stmts newDict is
+                    where newDict = Dictionary.insert (var, i) dict
+exec (Write expr : stmts) dict input = (Expr.value expr dict) : exec stmts dict input
 
 instance Parse Statement where
   parse = assignment ! skip ! begin ! ifStmt ! while ! readStmt ! write
