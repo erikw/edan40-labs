@@ -48,7 +48,7 @@ accept w = (token (chars (length w))) ? (==w)
 
 -- Accept word or throw error message.
 require :: String -> Parser String
-require w  = accept w ! err "Could not require"
+require w  = accept w ! err ("Could not require '" ++ w ++ "'")
 
 lit :: Char -> Parser Char
 lit c = token char ? (==c)
