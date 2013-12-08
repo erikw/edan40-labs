@@ -16,33 +16,39 @@ iter m = m # iter m >-> cons ! return []
 
 cons(a, b) = a:b
 
+-- like (#) but discard the first parser's result.
 (-#) :: Parser a -> Parser b -> Parser b
-m -# n = error "-# not implemented"
+m -# n = (m # n) >-> snd
 
+-- like (#) but discard the second parser's result.
 (#-) :: Parser a -> Parser b -> Parser a
-m #- n = error "#- not implemented"
+m #- n = (m # n) >-> fst
 
+-- Consume any amout of spaces.
 spaces :: Parser String
-spaces =  error "spaces not implemented"
+spaces = iter (char ? isSpace)
 
 token :: Parser a -> Parser a
 token m = m #- spaces
 
+-- Parse an 'alpha' character.
 letter :: Parser Char
-letter =  error "letter not implemented"
+letter = char ? isAlpha
 
 word :: Parser String
 word = token (letter # iter letter >-> cons)
 
+-- Parse n charcters.
 chars :: Int -> Parser String
 chars 0 = return []
-chars n = char #chars (n-1) >-> cons
+chars n = char # chars (n-1) >-> cons
 
 accept :: String -> Parser String
 accept w = (token (chars (length w))) ? (==w)
 
+-- Accept word or throw error message.
 require :: String -> Parser String
-require w  = error "require not implemented"
+require w  = accept w ! err "Could not require"
 
 lit :: Char -> Parser Char
 lit c = token char ? (==c)
