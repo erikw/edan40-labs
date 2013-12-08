@@ -70,8 +70,20 @@ shw prec (Sub t u) = parens (prec>5) (shw 5 t ++ "-" ++ shw 6 u)
 shw prec (Mul t u) = parens (prec>6) (shw 6 t ++ "*" ++ shw 6 u)
 shw prec (Div t u) = parens (prec>6) (shw 6 t ++ "/" ++ shw 7 u)
 
+-- Get value of an expression if all vars are in dict and no 0-div exists.
 value :: Expr -> Dictionary.T String Integer -> Integer
-value (Num n) _ = error "value not implemented"
+value (Num n) _ = n
+value (Var name) dict = case Dictionary.lookup name dict of
+                        Nothing -> error $ "Could not find variable in dict: " ++ name
+                        Just val -> val
+{-value (Add lhs rhs) dict = (value lhs dict) + (value rhs dict)-}
+value (Add lhs rhs) dict = foldr1 (+) $ map (flip value dict) [lhs, rhs]
+value (Sub lhs rhs) dict = foldl1 (-) $ map (flip value dict) [lhs, rhs]
+value (Mul lhs rhs) dict = foldl1 (*) $ map (flip value dict) [lhs, rhs]
+value (Div lhs rhs) dict 
+                | rval == 0 = error "Division by 0."
+                | otherwise = lval `quot` rval
+            where [lval, rval] = map (flip value dict) [lhs, rhs]
 
 instance Parse Expr where
     parse = expr
