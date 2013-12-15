@@ -24,7 +24,6 @@
 \maketitle
 \thispagestyle{empty}	% No page number on title page.
 \end{titlepage}
-%\setcounter{page}{2}
 
 \section{Introduction}
 In the course Functional Programming (EDAN40) the second assignment is about using data structures in Haskell. To learn how to design and use data structures we are asked to implement functions for auto generation musical elements using the Haskcore library. As with natural languages we can make some rules governing the structure of music but they does not really apply generally. Focusing on the way western music are traditionally produces using musical scores a set of rules can guide the musical structure.
@@ -39,7 +38,6 @@ More specifically we were asked to, given a musical score for a well know song `
 > import Data.Maybe(fromJust)
 >
 > import Haskore hiding(Key)
->{-> import Control.Exception hiding (assert)-}
 
 \section{Types \& general functions}
 To make the code more readable we define some types that we will use.
@@ -188,8 +186,6 @@ So from a given chord (full sequence now) we want to be able to find a good chor
 
 > -- A list of all chord inversions from a given chord. Assuming a chord is a triad
 > chordInversions :: Chord -> [Chord]
->{-> chordInversions orig@(c1:c2:c3') =  [orig, [c1,c3,c2], [c2,c1,c3], [c2,c3,c1], [c3,c1,c2], [c3,c2,c1]]-}
->{-> 					where c3 = head c3'-}
 > chordInversions orig@(c1:c2:c3') =  [orig, [c1+12,c2,c3],[c1,c2+12,c3],[c1,c2,c3+12],[c1+12,c2+12,c3],[c1+12,c2,c3+12],[c1,c2+12,c3+12],[c1+12,c2+12,c3+12]]
 > 					where c3 = head c3'
 
